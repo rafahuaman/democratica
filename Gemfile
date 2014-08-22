@@ -10,10 +10,19 @@ gem 'pg'
 
 group :development, :test do
   gem 'rspec-rails', '2.13.1'
-  # gem 'guard-rspec', '2.5.0'
-  # gem 'spork-rails', '4.0.0'
-  # gem 'guard-spork', '1.5.0'
-  # gem 'childprocess'
+  gem 'guard-rspec', '2.5.0'
+  gem 'spork-rails', '4.0.0'
+  gem 'guard-spork', '1.5.0'
+  gem 'childprocess'
+end
+
+
+group :test do
+  #gem 'selenium-webdriver'
+  #gem 'capybara'
+  
+  gem 'libnotify', '0.8.0'
+  gem 'factory_girl_rails', '4.2.1'
 end
 
 
