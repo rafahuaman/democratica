@@ -5,6 +5,23 @@ source 'https://rubygems.org'
 gem 'rails', '4.1.4'
 # Use postgresql as the database for Active Record
 gem 'pg'
+
+
+
+group :development, :test do
+  gem 'rspec-rails', '2.13.1'
+  # gem 'guard-rspec', '2.5.0'
+  # gem 'spork-rails', '4.0.0'
+  # gem 'guard-spork', '1.5.0'
+  # gem 'childprocess'
+end
+
+
+
+
+
+
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
