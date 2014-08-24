@@ -21,7 +21,7 @@ end
 group :test do
   gem 'selenium-webdriver'
   gem 'capybara'
-  
+  gem 'rspec-given'
   gem 'libnotify', '0.8.0'
   gem 'factory_girl_rails', '4.2.1'
 end
