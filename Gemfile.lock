@@ -57,6 +57,9 @@ GEM
       railties (>= 3.0.0)
     ffi (1.9.3)
     formatador (0.2.5)
+    foundation-rails (5.4.0.0)
+      railties (>= 3.1.0)
+      sass (>= 3.2.0)
     guard (2.6.1)
       formatador (>= 0.2.4)
       listen (~> 2.7)
@@ -197,6 +200,7 @@ DEPENDENCIES
   childprocess
   coffee-rails (~> 4.0.0)
   factory_girl_rails (= 4.2.1)
+  foundation-rails
   guard-rspec (= 2.5.0)
   guard-spork (= 1.5.0)
   jbuilder (~> 2.0)
