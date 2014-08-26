@@ -165,6 +165,9 @@ GEM
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0.4)
+    simple_form (3.0.2)
+      actionpack (~> 4.0)
+      activemodel (~> 4.0)
     slop (3.6.0)
     sorcerer (1.0.2)
     spork (1.0.0rc4)
@@ -222,6 +225,7 @@ DEPENDENCIES
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
   selenium-webdriver
+  simple_form
   spork-rails (= 4.0.0)
   spring
   turbolinks
