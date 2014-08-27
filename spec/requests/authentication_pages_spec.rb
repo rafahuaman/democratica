@@ -50,16 +50,30 @@ describe "Authentication" do
 
       describe "in the Users controller" do
 
-        describe "visiting the edit page" do
+        describe "visiting a protected page" do
           before { visit edit_user_path(user) }
           it { should have_title('Sign in') }
 
-          describe "after signing-in should redirect to previous page" do
+          describe "after signing-in should redirect to previous protected page" do
             before do 
               valid_signin_form_completion(user)
               click_button "Sign in"
             end
             it { should have_title("Edit user") }
+
+            describe "when signing in again" do
+              before do
+                click_link "Sign out"
+                visit signin_path
+                fill_in "Email",    with: user.email
+                fill_in "Password", with: user.password
+                click_button "Sign in"
+              end
+
+              it "should render the default (root) page" do
+                expect(page).to have_title("Home")
+              end
+            end
           end
         end
 
