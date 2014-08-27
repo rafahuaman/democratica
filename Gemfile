@@ -7,10 +7,11 @@ gem 'rails', '4.1.4'
 gem 'pg'
 gem 'foundation-rails'
 gem 'simple_form'
+gem 'faker'
 
 
 group :development, :test do
-  gem 'rspec-rails', '2.13.1'
+  gem 'rspec-rails', '~> 2.14.0.rc1'
   gem 'guard-rspec', '2.5.0'
   gem 'spork-rails', '4.0.0'
   gem 'guard-spork', '1.5.0'

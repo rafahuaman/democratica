@@ -1,14 +1,18 @@
 class UsersController < ApplicationController
   before_action :check_signed_in_user, only: [:edit, :update, :destroy]
-  before_action :check_correct_user, only: [:edit, :update, :destroy]
-  
+  before_action :check_correct_user, only: [:edit, :update]
+  before_action :check_admin_user, only: :destroy
   before_action :set_user, only: [:show, :edit, :update, :destroy, :delete]
+  
 
   def new
     @user = User.new
   end
 
   def show
+  end
+
+  def edit
   end
 
   def create
@@ -27,6 +31,29 @@ class UsersController < ApplicationController
       end
     end
   end
+  
+  def update
+    @user = User.find(params[:id])
+    respond_to do |format|
+      if @user.update(user_params)
+        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def index
+    @users = User.all
+  end
+
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "User deleted."
+    redirect_to users_url
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -41,5 +68,9 @@ class UsersController < ApplicationController
     def check_correct_user
       @user = User.find(params[:id])
       redirect_to root_url unless current_user?(@user)
+    end
+
+    def check_admin_user
+      redirect_to(root_url) unless current_user.admin?
     end
 end

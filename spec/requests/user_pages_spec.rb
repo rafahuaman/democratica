@@ -1,10 +1,12 @@
 require 'spec_helper'
 
 describe "User Pages" do
+  let(:user) { FactoryGirl.create(:user) }
+  
   subject { page }
 
   describe "profile page" do
-    let(:user) { FactoryGirl.create(:user) }
+    
     before { visit user_path(user) }
 
     it { should have_content(user.name) }
@@ -15,7 +17,7 @@ describe "User Pages" do
     before { visit signup_path }
 
     it { should have_signup_page_appearance }
-    #it { should have_title('Sign up') }
+    it { should have_title('Sign up') }
   end
 
   describe "signup" do
@@ -52,4 +54,72 @@ describe "User Pages" do
     end
   end
 
+  describe "edit" do
+    let(:submit) { "Save changes" }
+    before do
+      sign_in user
+      visit edit_user_path(user)
+    end
+
+    describe "page" do
+      it { should have_content("Update your profile") }
+      it { should have_title("Edit user") }
+    end
+
+    describe "with invalid information" do
+      before { click_button submit }
+
+      it { should have_selector('div.alert-box.alert') }
+    end
+    
+    describe "with valid information" do
+      let(:user_signup_information) { { name: "New Name", email: "new@email.com", password: "New Password"} }
+      before do 
+        valid_signup_form_completion(user_signup_information) 
+        click_button submit
+      end
+      
+      it { should have_content(user_signup_information[:name]) }
+      it { should have_selector('div.alert-box.success') }
+      specify { expect(user.reload.name).to  eq user_signup_information[:name] }
+    end    
+  end
+
+  describe "index" do
+    before do
+      sign_in FactoryGirl.create(:user)
+      FactoryGirl.create(:user, name: "Bob", email: "bob@example.com")
+      FactoryGirl.create(:user, name: "Ben", email: "ben@example.com")
+      visit users_path
+    end
+
+    it { should have_title('All users') }
+    it { should have_content('All users') }
+
+    it "should list each user" do
+      User.all.each do |user|
+        expect(page).to have_selector('li', text: user.name)
+      end
+    end
+    describe "delete links" do
+
+      it { should_not have_link('delete') }
+
+      describe "as an admin user" do
+        let(:admin) { FactoryGirl.create(:admin) }
+        before do
+          sign_in admin
+          visit users_path
+        end
+
+        it { should have_link('delete', href: user_path(User.first)) }
+        it "should be able to delete another user" do
+          expect do
+            click_link('delete', match: :first)
+          end.to change(User, :count).by(-1)
+        end
+        it { should_not have_link('delete', href: user_path(admin)) }
+      end
+    end
+  end
 end

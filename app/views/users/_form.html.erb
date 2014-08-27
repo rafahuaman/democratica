@@ -1,0 +1,6 @@
+<div class="form">
+  <%= simple_form_for(@user) do |f| %>
+    <%= render 'fields', f: f %>
+    <%= f.button :submit, submit_caption %>
+  <% end %>
+</div>
