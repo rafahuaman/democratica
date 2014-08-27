@@ -82,7 +82,19 @@ describe "User Pages" do
       it { should have_content(user_signup_information[:name]) }
       it { should have_selector('div.alert-box.success') }
       specify { expect(user.reload.name).to  eq user_signup_information[:name] }
-    end    
+    end
+
+    describe "forbidden attributes" do
+      let(:params) do
+        { user: { admin: true, password: user.password,
+                  password_confirmation: user.password } }
+      end
+      before do
+        sign_in user, no_capybara: true
+        patch user_path(user), params
+      end
+      specify { expect(user.reload).not_to be_admin }
+    end   
   end
 
   describe "index" do
