@@ -1,0 +1,47 @@
+<h1>Listing representatives</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Prefix</th>
+      <th>First name</th>
+      <th>Middle name</th>
+      <th>Last name</th>
+      <th>Suffix</th>
+      <th>Address</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Zip4</th>
+      <th>District</th>
+      <th>Party</th>
+      <th>Twitter handle</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @representatives.each do |representative| %>
+      <tr>
+        <td><%= representative.prefix %></td>
+        <td><%= representative.first_name %></td>
+        <td><%= representative.middle_name %></td>
+        <td><%= representative.last_name %></td>
+        <td><%= representative.suffix %></td>
+        <td><%= representative.address %></td>
+        <td><%= representative.city %></td>
+        <td><%= representative.state %></td>
+        <td><%= representative.zip4 %></td>
+        <td><%= representative.district %></td>
+        <td><%= representative.party %></td>
+        <td><%= representative.twitter_handle %></td>
+        <td><%= link_to 'Show', representative %></td>
+        <td><%= link_to 'Edit', edit_representative_path(representative) %></td>
+        <td><%= link_to 'Destroy', representative, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Representative', new_representative_path %>

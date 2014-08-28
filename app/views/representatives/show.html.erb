@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Prefix:</strong>
+  <%= @representative.prefix %>
+</p>
+
+<p>
+  <strong>First name:</strong>
+  <%= @representative.first_name %>
+</p>
+
+<p>
+  <strong>Middle name:</strong>
+  <%= @representative.middle_name %>
+</p>
+
+<p>
+  <strong>Last name:</strong>
+  <%= @representative.last_name %>
+</p>
+
+<p>
+  <strong>Suffix:</strong>
+  <%= @representative.suffix %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @representative.address %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @representative.city %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @representative.state %>
+</p>
+
+<p>
+  <strong>Zip4:</strong>
+  <%= @representative.zip4 %>
+</p>
+
+<p>
+  <strong>District:</strong>
+  <%= @representative.district %>
+</p>
+
+<p>
+  <strong>Party:</strong>
+  <%= @representative.party %>
+</p>
+
+<p>
+  <strong>Twitter handle:</strong>
+  <%= @representative.twitter_handle %>
+</p>
+
+<%= link_to 'Edit', edit_representative_path(@representative) %> |
+<%= link_to 'Back', representatives_path %>
