@@ -1,4 +1,6 @@
 class RepresentativesController < ApplicationController
+  before_action :check_signed_in_user, only: [:new, :create, :edit, :update, :destroy]
+  before_action :check_admin_user, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_representative, only: [:show, :edit, :update, :destroy]
 
   # GET /representatives
@@ -69,6 +71,7 @@ class RepresentativesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def representative_params
-      params.require(:representative).permit(:prefix, :first_name, :middle_name, :last_name, :suffix, :address, :city, :state, :zip4, :district, :party, :twitter_handle)
+      params.require(:representative).permit(:prefix, :first_name, :middle_name, :last_name, :suffix, 
+              :address, :city, :state, :zip4, :district, :party, :twitter_handle)
     end
 end

@@ -82,6 +82,35 @@ describe "Authentication" do
           specify { expect(response).to redirect_to(signin_path) }
         end
       end
+
+      describe "in the Representatives controller" do
+        let(:rep) { FactoryGirl.create(:representative) }
+
+        describe "visiting the new page" do
+          before { visit new_representative_path }
+          it { should have_title('Sign in') }
+        end
+
+        describe "visiting the edit page" do
+          before { visit edit_representative_path(rep) }
+          it { should have_title('Sign in') }
+        end
+
+        describe "submitting to the update action" do
+          before { patch representative_path(rep) }
+          specify { expect(response).to redirect_to(signin_path) }
+        end
+
+        describe "submitting to the create action" do
+          before { post representatives_path }
+          specify { expect(response).to redirect_to(signin_path) }
+        end
+
+        describe "submitting to the destroy action" do
+          before { delete representative_path(rep) }
+          specify { expect(response).to redirect_to(signin_path) }
+        end
+      end
     end
 
     describe "as wrong user" do
@@ -110,6 +139,40 @@ describe "Authentication" do
       describe "submitting a DELETE request to the Users#destroy action" do
         before { delete user_path(user) }
         specify { expect(response).to redirect_to(root_url) }
+      end
+
+      describe "in the Representatives controller" do
+        let(:rep) { FactoryGirl.create(:representative) }
+
+        describe "visiting a protected page" do
+          before do 
+            sign_in non_admin
+            visit edit_representative_path(rep) 
+          end
+          it { should have_title('Home') }
+        end
+
+        describe "submitting a post request to the Representatives#show action" do
+          before { post representatives_path }
+          specify { expect(response).to redirect_to(root_url) }
+        end
+
+        describe "submitting a GET request to the Representatives#edit action" do
+          before { get edit_representative_path(rep) }
+          specify { expect(response.body).not_to match('Edit representative') }
+          specify { expect(response).to redirect_to(root_url) }
+        end
+
+        describe "submitting a PATCH request to the Representatives#update action" do
+          before { patch representative_path(rep) }
+          specify { expect(response).to redirect_to(root_url) }
+        end
+
+        describe "submitting a DELETE request to the Representatives#destroy action" do
+          
+          before { delete representative_path(user) }
+          specify { expect(response).to redirect_to(root_url) }
+        end
       end
     end
   end

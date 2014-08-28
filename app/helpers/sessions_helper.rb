@@ -30,6 +30,10 @@ module SessionsHelper
     end
   end
 
+  def check_admin_user
+      redirect_to(root_url) unless current_user.admin?
+  end
+
   def redirect_incorrect_users_to_root(user_id)
     correct_user = User.find_by(id: user_id)
     redirect_to root_url unless current_user?(correct_user)
