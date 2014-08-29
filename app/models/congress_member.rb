@@ -1,4 +1,4 @@
-class Representative < ActiveRecord::Base
+class CongressMember < ActiveRecord::Base
   before_save { self.district = district.downcase }
   validates :first_name, presence: true, length: { maximum: 50 }
   validates :last_name, presence: true, length: { maximum: 50 }

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :representatives
+  resources :congress_members
 
   resources :users
   resources :sessions, only: [:new, :create, :destroy]

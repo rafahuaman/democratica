@@ -1,4 +1,4 @@
-<h1>Listing representatives</h1>
+<h1>Listing congress members</h1>
 
 <table>
   <thead>
@@ -20,23 +20,23 @@
   </thead>
 
   <tbody>
-    <% @representatives.each do |representative| %>
+    <% @congress_members.each do |member| %>
       <tr>
-        <td><%= representative.prefix %></td>
-        <td><%= representative.first_name %></td>
-        <td><%= representative.middle_name %></td>
-        <td><%= representative.last_name %></td>
-        <td><%= representative.suffix %></td>
-        <td><%= representative.address %></td>
-        <td><%= representative.city %></td>
-        <td><%= representative.state %></td>
-        <td><%= representative.zip4 %></td>
-        <td><%= representative.district %></td>
-        <td><%= representative.party %></td>
-        <td><%= representative.twitter_handle %></td>
-        <td><%= link_to 'Show', representative %></td>
-        <td><%= link_to 'Edit', edit_representative_path(representative) %></td>
-        <td><%= link_to 'Destroy', representative, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= member.prefix %></td>
+        <td><%= member.first_name %></td>
+        <td><%= member.middle_name %></td>
+        <td><%= member.last_name %></td>
+        <td><%= member.suffix %></td>
+        <td><%= member.address %></td>
+        <td><%= member.city %></td>
+        <td><%= member.state %></td>
+        <td><%= member.zip4 %></td>
+        <td><%= member.district %></td>
+        <td><%= member.party %></td>
+        <td><%= member.twitter_handle %></td>
+        <td><%= link_to 'Show', member %></td>
+        <td><%= link_to 'Edit', edit_congress_member_path(member) %></td>
+        <td><%= link_to 'Destroy', member, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -44,4 +44,4 @@
 
 <br>
 
-<%= link_to 'New Representative', new_representative_path %>
+<%= link_to 'New Congress Member', new_congress_member_path %>

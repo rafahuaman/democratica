@@ -83,31 +83,31 @@ describe "Authentication" do
         end
       end
 
-      describe "in the Representatives controller" do
-        let(:rep) { FactoryGirl.create(:representative) }
+      describe "in the CongressMembers controller" do
+        let(:member) { FactoryGirl.create(:congress_member) }
 
         describe "visiting the new page" do
-          before { visit new_representative_path }
+          before { visit new_congress_member_path }
           it { should have_title('Sign in') }
         end
 
         describe "visiting the edit page" do
-          before { visit edit_representative_path(rep) }
+          before { visit edit_congress_member_path(member) }
           it { should have_title('Sign in') }
         end
 
         describe "submitting to the update action" do
-          before { patch representative_path(rep) }
+          before { patch congress_member_path(member) }
           specify { expect(response).to redirect_to(signin_path) }
         end
 
         describe "submitting to the create action" do
-          before { post representatives_path }
+          before { post congress_members_path }
           specify { expect(response).to redirect_to(signin_path) }
         end
 
         describe "submitting to the destroy action" do
-          before { delete representative_path(rep) }
+          before { delete congress_member_path(member) }
           specify { expect(response).to redirect_to(signin_path) }
         end
       end
@@ -141,36 +141,36 @@ describe "Authentication" do
         specify { expect(response).to redirect_to(root_url) }
       end
 
-      describe "in the Representatives controller" do
-        let(:rep) { FactoryGirl.create(:representative) }
+      describe "in the CongressMembers controller" do
+        let(:member) { FactoryGirl.create(:congress_member) }
 
         describe "visiting a protected page" do
           before do 
             sign_in non_admin
-            visit edit_representative_path(rep) 
+            visit edit_congress_member_path(member) 
           end
           it { should have_title('Home') }
         end
 
-        describe "submitting a post request to the Representatives#show action" do
-          before { post representatives_path }
+        describe "submitting a post request to the congress_members#show action" do
+          before { post congress_members_path }
           specify { expect(response).to redirect_to(root_url) }
         end
 
-        describe "submitting a GET request to the Representatives#edit action" do
-          before { get edit_representative_path(rep) }
-          specify { expect(response.body).not_to match('Edit representative') }
+        describe "submitting a GET request to the congress_members#edit action" do
+          before { get edit_congress_member_path(member) }
+          specify { expect(response.body).not_to match('Edit congress_member') }
           specify { expect(response).to redirect_to(root_url) }
         end
 
-        describe "submitting a PATCH request to the Representatives#update action" do
-          before { patch representative_path(rep) }
+        describe "submitting a PATCH request to the congress_members#update action" do
+          before { patch congress_member_path(member) }
           specify { expect(response).to redirect_to(root_url) }
         end
 
-        describe "submitting a DELETE request to the Representatives#destroy action" do
+        describe "submitting a DELETE request to the congress_members#destroy action" do
           
-          before { delete representative_path(user) }
+          before { delete congress_member_path(user) }
           specify { expect(response).to redirect_to(root_url) }
         end
       end

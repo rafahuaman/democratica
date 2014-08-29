@@ -10,7 +10,7 @@ FactoryGirl.define do
     end
   end
 
-  factory :representative do
+  factory :congress_member do
     prefix "prefix"
     sequence(:first_name)  { |n| "name #{n}" }
     middle_name "M"
