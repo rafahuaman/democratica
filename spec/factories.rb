@@ -17,6 +17,15 @@ FactoryGirl.define do
     sequence(:district)  { |n|  n }
     party "R"
     twitter_handle "@handle"
-  end
+    type "Representative"
 
+    factory :senator do
+      district "N/A"
+      type "Senator"
+    end
+
+    factory :representative do
+      type "Representative"
+    end
+  end
 end
