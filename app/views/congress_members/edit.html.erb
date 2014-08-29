@@ -1,6 +1,7 @@
-<h1>Editing congress member</h1>
+<% provide(:title, 'Edit congress member') %>
+<h1>Edit congress member</h1>
 
-<%= render 'form' %>
+<%= render 'form', submit_caption: "Save changes" %>
 
 <%= link_to 'Show', @congress_member %> |
 <%= link_to 'Back', congress_members_path %>

@@ -1,3 +1,4 @@
+<% provide(:title, @congress_member.name_with_title) %>
 <p id="notice"><%= notice %></p>
 
 <h1>
@@ -10,10 +11,12 @@
   <%= @congress_member.state %>
 </p>
 
-<p>
-  <strong>District:</strong>
-  <%= @congress_member.district %>
-</p>
+<% if @congress_member.representative?  %>
+  <p>
+    <strong>District:</strong>
+    <%= @congress_member.district %>
+  </p>
+<% end %>
 
 <p>
   <strong>Party:</strong>

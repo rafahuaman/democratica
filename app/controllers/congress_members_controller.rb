@@ -69,9 +69,16 @@ class CongressMembersController < ApplicationController
       @congress_member = CongressMember.find(params[:id])
     end
 
+    def type
+      if  CongressMember.types.include?(params[:type])
+        params[:type] 
+      else
+        "CongressMember"
+      end
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def congress_member_params
-      params.require(:congress_member).permit(:prefix, :first_name, :middle_name, :last_name, :suffix, 
-              :address, :city, :state, :zip4, :district, :party, :twitter_handle)
+      params.require(type.underscore.to_sym).permit(:first_name, :last_name, :state, :district, :party, :twitter_handle, :type)
     end
 end

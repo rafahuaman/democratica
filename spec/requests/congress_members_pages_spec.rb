@@ -22,35 +22,39 @@ describe "Congress Member Pages" do
   end
 
   describe "edit" do
-    let(:submit) { "Submit" }
+    let(:submit) { "Save changes" }
     before do
       sign_in admin
       visit edit_congress_member_path(rep)
     end
 
     describe "page" do
-      it { should have_content("Editing congress member") }
+      it { should have_content("Edit congress member") }
       it { should have_title("Edit congress member") }
     end
 
     describe "with invalid information" do
-      before { click_button submit }
+      before do
+        fill_in "State", with: ""
+       click_button submit 
+     end
 
       it { should have_selector('div.alert-box.alert') }
     end
     
     describe "with valid information" do
-      let(:congress_member_signup_information) { { first_name: "NewName", last_name: "NewSurname", party: "D" } }
+      let(:congress_member_form_information) { { first_name: "NewName", last_name: "NewSurname",
+                                                state: "DC", district: 2, party: "D", twitter_handle: "@NewHandle", type: "Senator" } }
       before do 
-        valid_edit_congress_member_form_completion(congress_member_signup_information) 
+        valid_congress_member_form_completion(congress_member_form_information) 
         click_button submit
       end
       
-      it { should have_content(congress_member_signup_information[:first_name]) }
-      it { should have_content(congress_member_signup_information[:last_name]) }
-      it { should have_content(congress_member_signup_information[:party]) }
+      it { should have_content(congress_member_form_information[:first_name]) }
+      it { should have_content(congress_member_form_information[:last_name]) }
+      it { should have_content(congress_member_form_information[:party]) }
       it { should have_selector('div.alert-box.success') }
-      specify { expect(rep.reload.name).to  eq congress_member_signup_information[:name] }
+      specify { expect(rep.reload.first_name).to  eq congress_member_form_information[:first_name] }
     end   
   end
 
@@ -67,19 +71,23 @@ describe "Congress Member Pages" do
         expect(page).to have_selector('li', text: member.full_name)
       end
     end
+    
     describe "edit & delete links" do
 
       it { should_not have_link('delete') }
       it { should_not have_link('edit') }
 
       describe "as an admin user" do
+
         before do
+          FactoryGirl.create(:representative) 
+          FactoryGirl.create(:senator) 
           sign_in admin
           visit congress_members_path
         end
 
         it { should have_link('delete', href: congress_member_path(CongressMember.first)) }
-        it { should have_link('delete', href: edit_congress_member_path(CongressMember.first)) }
+        it { should have_link('edit', href: edit_congress_member_path(CongressMember.first)) }
         it "should be able to delete another user" do
           expect do
             click_link('delete', match: :first)

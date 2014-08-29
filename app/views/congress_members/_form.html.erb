@@ -1,22 +1,6 @@
-<%= simple_form_for(@congress_member) do |f| %>
-  <%= f.error_notification %>
-
-  <div class="form-inputs">
-    <%= f.input :prefix %>
-    <%= f.input :first_name %>
-    <%= f.input :middle_name %>
-    <%= f.input :last_name %>
-    <%= f.input :suffix %>
-    <%= f.input :address %>
-    <%= f.input :city %>
-    <%= f.input :state %>
-    <%= f.input :zip4 %>
-    <%= f.input :district %>
-    <%= f.input :party %>
-    <%= f.input :twitter_handle %>
-  </div>
-
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
-<% end %>
+<div class="form">
+  <%= simple_form_for(@congress_member) do |f| %>
+    <%= render 'fields', f: f %>
+    <%= f.button :submit, submit_caption %>
+  <% end %>
+</div>
