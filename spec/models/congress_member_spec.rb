@@ -14,6 +14,10 @@ describe CongressMember do
   it { should respond_to(:party) }
   it { should respond_to(:twitter_handle) }
   it { should respond_to(:type) }
+
+  its(:full_name) { should eq "#{@rep.first_name} #{@rep.last_name}" }
+  its(:name_with_title) { should eq "#{@rep.type} #{@rep.first_name} #{@rep.last_name}" }
+  it { should be_representative }
   
   it { should be_valid }
   
@@ -35,6 +39,7 @@ describe CongressMember do
   describe "when type is senator" do
     before { @rep.type = "Senator" }
     it { should be_valid }
+    it { should be_senator }
   end
 
   describe "when type is not valid" do

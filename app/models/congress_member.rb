@@ -5,6 +5,22 @@ class CongressMember < ActiveRecord::Base
   validates :state, length: { maximum: 2 }
   validates :type, presence: true, inclusion: { in: %w(Representative Senator),
     message: "%{value} is not a valid Type" }
+
+  def full_name
+    self.first_name + " " + self.last_name
+  end
+  
+  def name_with_title
+    self.type + " " + full_name
+  end
+
+  def representative?
+    type == Representative.name 
+  end
+  
+  def senator?
+    type == Senator.name
+  end
 end
 
 class Representative < CongressMember
