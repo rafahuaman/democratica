@@ -8,7 +8,41 @@ module CongressMemberUtility
     fill_in 'Twitter handle', with: member_info[:twitter_handle]
     select member_info[:type], :from => 'Type'
   end
+
+  RSpec::Matchers.define :have_new_congress_member_page_appearance do
+    match do |page|
+      expect(page).to have_title('New congress member')
+      expect(page).to have_content('New congress member')
+      expect(page).to have_content('First name')
+      expect(page).to have_content('Last name')
+      expect(page).to have_content('State')
+      expect(page).to have_content('District')
+      expect(page).to have_content('Party')
+      expect(page).to have_content('Twitter handle')
+      expect(page).to have_content('Type')
+    end
+  end
+
+  RSpec::Matchers.define :have_congress_member_show_data do |congress_member|
+    match do |page|
+      expect(page).to have_content(congress_member[:first_name])
+      expect(page).to have_content(congress_member[:last_name])
+      expect(page).to have_content(congress_member[:district])
+      expect(page).to have_content(congress_member[:state])
+      expect(page).to have_content(congress_member[:party])
+      expect(page).to have_content(congress_member[:twitter_handle])
+      expect(page).to have_content(congress_member[:type])
+    end
+  end
+
+   RSpec::Matchers.define :have_congress_member_created_successfully_message  do
+    match do |page|
+      expect(page).to have_selector("div.alert-box", text: "Congress Member was successfully created")
+    end
+  end
 end
+
+
 
 RSpec.configure do |c|
   c.include CongressMemberUtility

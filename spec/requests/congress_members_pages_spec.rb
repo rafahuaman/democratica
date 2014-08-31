@@ -7,18 +7,68 @@ describe "Congress Member Pages" do
   
   subject { page }
 
-  describe "profile page" do
+  describe "show page" do
     
     before { visit congress_member_path(rep) }
 
-    it { should have_content(rep.full_name) }
     it { should have_title(rep.full_name) }
-    it { should have_content(rep.state) }
-    it { should have_content(rep.district) }
-    it { should have_content(rep.party) }
-    it { should have_content(rep.twitter_handle) }
-    it { should have_content(rep.type) }
+    it { should have_congress_member_show_data(rep) }
+    # it { should have_title(rep.full_name) }
+    # it { should have_content(rep.state) }
+    # it { should have_content(rep.district) }
+    # it { should have_content(rep.party) }
+    # it { should have_content(rep.twitter_handle) }
+    # it { should have_content(rep.type) }
+  end
+
+  describe "create a congress member" do
+    before do 
+      sign_in admin
+      visit new_congress_member_path 
+    end
     
+    let(:submit)  { "Create congress member" }
+    
+    it { should have_new_congress_member_page_appearance  }
+    
+    describe "with invalid information" do
+      it "should not create a debate" do
+        expect { click_button submit }.not_to change(CongressMember, :count)
+      end
+       
+      # describe "after submission with blanks" do
+      #   before { click_button submit }
+      #   it { should have_invalid_new_debate_with_blanks_message }
+      # end  
+    end
+    
+    describe "with valid information" do
+      let(:congress_member_form_information) do { 
+        first_name: "NewName", 
+        last_name: "NewSurname",
+        state: "DC", 
+        district: 2, 
+        party: "D", 
+        twitter_handle: "@NewHandle", 
+        type: "Senator" } 
+      end
+      
+      before { valid_congress_member_form_completion(congress_member_form_information) }
+      
+      it "should create a debate" do
+         expect { click_button submit }.to change(CongressMember, :count).by(1)
+      end
+      
+      describe "should redirect to debate show page after saving the debate" do
+        before { click_button submit } 
+        it { should have_congress_member_show_data(congress_member_form_information) }
+      end
+      
+      describe "should show success message after saving the debate" do
+        before { click_button submit }
+        it { should have_congress_member_created_successfully_message }
+      end
+    end
   end
 
   describe "edit" do
