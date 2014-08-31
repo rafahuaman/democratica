@@ -6,7 +6,7 @@ module CongressMemberUtility
     fill_in 'District', with: member_info[:district]
     fill_in 'Party', with: member_info[:party]
     fill_in 'Twitter handle', with: member_info[:twitter_handle]
-    fill_in 'Type', with: member_info[:type]
+    select member_info[:type], :from => 'Type'
   end
 end
 

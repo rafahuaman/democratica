@@ -5,4 +5,4 @@
 <%= f.input :district %>
 <%= f.input :party %>
 <%= f.input :twitter_handle %>
-<%= f.input :type %>
+<%= f.input :type, collection: CongressMember.types %>
