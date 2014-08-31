@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :rallies
+
   resources :congress_members
   resources :senators, :controller => "congress_members", :type => "Senator"
   resources :representatives, :controller => "congress_members", :type => "Representative"
