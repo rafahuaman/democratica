@@ -177,7 +177,6 @@ describe "Rally pages" do
         it { should have_rally_created_successfully_message }
       end
     end
-
   end
   
   describe "show" do
@@ -196,6 +195,28 @@ describe "Rally pages" do
     describe "when not signed in as rally owner" do
       it { should_not have_rally_links_for_owner(rally) }
     end
-        
+  end
+
+  describe "edit page" do
+    let(:edit)  { "edit" }
+    let(:submit)  { "Save changes" }
+    let(:edited_content)  { "Edited Rally Content" }
+
+    before do 
+      sign_in user
+      visit rally_path(rally)
+    end
+
+    it { should have_link(edit) }
+
+    describe "should save changes" do
+      before do
+        click_link edit
+        fill_in "Content", with: edited_content
+        click_button submit
+      end
+
+      it { should have_content(edited_content) }
+    end
   end
 end

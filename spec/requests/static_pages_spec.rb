@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe "StaticPages" do
   describe "Home page" do
-    it "should have content 'Democratica Project'" do
+    it "should have content 'Democratica'" do
       visit root_path
-      expect(page).to have_content('Democratica Project')
+      expect(page).to have_content('Democratica')
     end
   end
   
