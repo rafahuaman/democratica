@@ -15,7 +15,7 @@ describe "Navigation Requests Spec" do
   describe "Side bar should be available" do
     it "should show the sidebar on all pages" do
       visit root_path
-      should have_link('Submit a new rally', new_rally_path)
+      should have_link('Start a new rally', new_rally_path)
     end
   end
 end
