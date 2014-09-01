@@ -42,8 +42,6 @@ module CongressMemberUtility
   end
 end
 
-
-
 RSpec.configure do |c|
   c.include CongressMemberUtility
 end

@@ -145,6 +145,7 @@ describe "Authentication" do
 
     describe "as wrong user" do
       let(:wrong_user) { FactoryGirl.create(:user, email: "wrong@example.com") }
+      
       describe "in the Users controller" do
         #let(:user) { FactoryGirl.create(:user) }
         
@@ -163,6 +164,7 @@ describe "Authentication" do
       end
 
       describe "in the Rallies controller" do
+        let(:rally) { FactoryGirl.create(:rally) }
         before { sign_in user, no_capybara: true }
 
         describe "submitting a GET request to the #edit action" do
@@ -176,7 +178,7 @@ describe "Authentication" do
         end
         
         describe "submitting a DELETE request to the #delete action" do
-          before { delete rally_path(debate) }
+          before { delete rally_path(rally) }
           it { should respond_by_redirecting_to_root_page }
         end
       end

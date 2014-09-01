@@ -1,6 +1,6 @@
 class RalliesController < ApplicationController
   before_action :check_signed_in_user, only: [:new, :create, :edit, :update, :destroy]
-  #before_action :check_correct_user, only: [:edit, :update, :destroy] 
+  before_action :check_correct_user, only: [:edit, :update, :destroy] 
   before_action :set_rally, only: [:show, :edit, :update, :destroy]
 
   # GET /rallies
@@ -72,5 +72,10 @@ class RalliesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def rally_params
       params.require(:rally).permit(:title, :content, :twitter_template, :user_id)
+    end
+
+    def check_correct_user
+      set_rally
+      redirect_to root_url unless current_user?(@rally.user)
     end
 end
