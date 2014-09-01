@@ -23,7 +23,18 @@ module CongressMemberUtility
     end
   end
 
-  RSpec::Matchers.define :have_congress_member_show_data do |congress_member|
+  RSpec::Matchers.define :have_senator_show_data do |congress_member|
+    match do |page|
+      expect(page).to have_content(congress_member[:first_name])
+      expect(page).to have_content(congress_member[:last_name])
+      expect(page).to have_content(congress_member[:state])
+      expect(page).to have_content(congress_member[:party])
+      expect(page).to have_content(congress_member[:twitter_handle])
+      expect(page).to have_content(congress_member[:type])
+    end
+  end
+
+  RSpec::Matchers.define :have_representative_show_data do |congress_member|
     match do |page|
       expect(page).to have_content(congress_member[:first_name])
       expect(page).to have_content(congress_member[:last_name])

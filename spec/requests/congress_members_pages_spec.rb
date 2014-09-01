@@ -12,7 +12,7 @@ describe "Congress Member Pages" do
     before { visit congress_member_path(rep) }
 
     it { should have_title(rep.full_name) }
-    it { should have_congress_member_show_data(rep) }
+    it { should have_representative_show_data(rep) }
     # it { should have_title(rep.full_name) }
     # it { should have_content(rep.state) }
     # it { should have_content(rep.district) }
@@ -61,7 +61,7 @@ describe "Congress Member Pages" do
       
       describe "should redirect to debate show page after saving the debate" do
         before { click_button submit } 
-        it { should have_congress_member_show_data(congress_member_form_information) }
+        it { should have_senator_show_data(congress_member_form_information) }
       end
       
       describe "should show success message after saving the debate" do
