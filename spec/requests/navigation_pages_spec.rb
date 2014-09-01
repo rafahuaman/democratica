@@ -9,15 +9,13 @@ describe "Navigation Requests Spec" do
       should have_link('Home')
       should have_link('About')
       should have_link('Sign up')
-      should have_link('Start a new rally')
     end
   end
   
   describe "Side bar should be available" do
     it "should show the sidebar on all pages" do
       visit root_path
-      #should have_link('Submit a new rally', new_debate_path)
-      #should have_link('Create a new chamber', new_chamber_path)
+      should have_link('Submit a new rally', new_rally_path)
     end
   end
 end

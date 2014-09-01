@@ -1,15 +1,11 @@
 <div class="hide-for-small">
   <div class="sidebar">
     <h5>Side Bar</h5>
-    <a href="#" class="button expand">Start a new rally!</a>
-    <a href="#" class="button expand">Create a new category</a>
+    <%= link_to "Start a new rally!", new_rally_path, class: "button expand" %>
     <nav>
       <ul class="side-nav">
-        <li class="heading">Setup</li>
-        <li><a href="#">Link 1</a></li>
-        <li><a href="#">Link 2</a></li>
-        <li><a href="#">Link 3</a></li>
-        <li><a href="#">Link 4</a></li>
+        <li class="heading">Helpful Links</li>
+        <li><%= link_to "All Congress Members", congress_members_path %></li>
       </ul>
     </nav>
   </div>
