@@ -28,4 +28,11 @@ FactoryGirl.define do
       type "Representative"
     end
   end
+
+  factory :rally do
+    sequence(:title) { |n| "Lorem ipsum #{n}" }
+    content "Lorem ipsum"
+    twitter_template "#democratica"
+    user
+  end
 end

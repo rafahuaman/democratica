@@ -1,0 +1,23 @@
+<div class="row rally" id=<%= "rally-card-#{@rally.id}"  %>>
+  <div class="small-12 columns">
+    <ul class="rally-grid-spacing small-block-grid-2 large-block-grid-2">
+      <li class="rally-description">
+        <h5 class="content-title"><%= link_to "#{@rally.title}", rally_path(@rally) %></h5>
+        <p class="author">Submitted by 
+          <span class="author-name"><strong><%= link_to "#{@rally.user.name}", user_path(@rally.user_id) %></strong></span>
+        </p>
+        <div class="rally-stats">
+          <ul class="inline-list">
+            <li></li>
+            <li><a href=#># comments</a></li>
+            <% if current_user == @rally.user %>
+              <li><%= link_to "edit", edit_rally_path(@rally) %></li>
+              <li><%= link_to "delete", rally_path(@rally), method: :delete, data: { confirm: "You sure?" } %></li>
+            <% end %>
+          </ul>
+        </div>
+      </li>
+    </ul>    
+  </div>
+  <hr>
+</div>

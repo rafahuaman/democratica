@@ -35,7 +35,7 @@ module CongressMemberUtility
     end
   end
 
-   RSpec::Matchers.define :have_congress_member_created_successfully_message  do
+  RSpec::Matchers.define :have_congress_member_created_successfully_message  do
     match do |page|
       expect(page).to have_selector("div.alert-box", text: "Congress Member was successfully created")
     end

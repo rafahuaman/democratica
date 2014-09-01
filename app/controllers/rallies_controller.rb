@@ -1,10 +1,12 @@
 class RalliesController < ApplicationController
+  before_action :check_signed_in_user, only: [:new, :create, :edit, :update, :destroy]
+  #before_action :check_correct_user, only: [:edit, :update, :destroy] 
   before_action :set_rally, only: [:show, :edit, :update, :destroy]
 
   # GET /rallies
   # GET /rallies.json
   def index
-    @rallies = Rally.all
+    @rallies = Rally.all.paginate(page: params[:page])
   end
 
   # GET /rallies/1
@@ -24,7 +26,7 @@ class RalliesController < ApplicationController
   # POST /rallies
   # POST /rallies.json
   def create
-    @rally = Rally.new(rally_params)
+    @rally = current_user.rallies.build(rally_params)
 
     respond_to do |format|
       if @rally.save

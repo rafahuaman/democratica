@@ -8,6 +8,8 @@ gem 'pg'
 gem 'foundation-rails'
 gem 'simple_form'
 gem 'faker'
+gem 'will_paginate'
+gem 'will_paginate-foundation'
 
 
 group :development, :test do

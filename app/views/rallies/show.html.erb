@@ -1,24 +1,14 @@
-<p id="notice"><%= notice %></p>
+<%= render 'rally_card', debate: @rally %>
+<div class="row">
+  <div class="large-12 small-12 columns">
+    <div class="debate-content">
+      <p><%= @rally.content %></p>
+      <p>
+        <strong>Twitter template:</strong>
+        <%= @rally.twitter_template %>
+      </p>
+    </div>
+  </div>
+  <hr>  
+</div>
 
-<p>
-  <strong>Title:</strong>
-  <%= @rally.title %>
-</p>
-
-<p>
-  <strong>Content:</strong>
-  <%= @rally.content %>
-</p>
-
-<p>
-  <strong>Twitter template:</strong>
-  <%= @rally.twitter_template %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @rally.user %>
-</p>
-
-<%= link_to 'Edit', edit_rally_path(@rally) %> |
-<%= link_to 'Back', rallies_path %>
