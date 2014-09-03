@@ -147,7 +147,6 @@ describe "Authentication" do
       let(:wrong_user) { FactoryGirl.create(:user, email: "wrong@example.com") }
       
       describe "in the Users controller" do
-        #let(:user) { FactoryGirl.create(:user) }
         
         before { sign_in user, no_capybara: true }
 
