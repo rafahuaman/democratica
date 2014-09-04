@@ -10,6 +10,7 @@ gem 'simple_form'
 gem 'faker'
 gem 'will_paginate'
 gem 'will_paginate-foundation'
+gem 'wicked'
 
 
 group :development, :test do
