@@ -20,7 +20,7 @@ describe "User Pages" do
     it { should have_title('Sign up') }
   end
 
-  describe "signup" do
+  describe "signup wizard" do
 
     before { visit signup_path }
 
@@ -50,6 +50,12 @@ describe "User Pages" do
       describe "after submission with valid information" do
         before { click_button submit }
         it {should have_user_creation_success_message }
+      end
+
+      describe "Enter Add Congressional District Form" do
+        before { click_button submit }
+        it { should have_content("State") }
+        it { should have_content("District") }
       end
     end
   end

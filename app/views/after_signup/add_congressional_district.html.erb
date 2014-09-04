@@ -1,0 +1,7 @@
+<h2>Thanks of signing up</h2>
+<%= simple_form_for(@user, url: wizard_path, method: :put) do |f| %>
+  <%= f.error_notification %>
+  <%= f.input :state, collection: us_states %>
+  <%= f.input :district %>
+  <%= f.button :submit, "Next" %>
+<% end %>
