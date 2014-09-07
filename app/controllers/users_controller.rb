@@ -21,7 +21,7 @@ class UsersController < ApplicationController
       if @user.save
         format.html do
           sign_in @user
-          redirect_to after_signup_path(:add_congressional_district), notice: 'User was successfully created.' 
+          redirect_to user_after_signup_path(user_id: @user.id, id: :add_state), notice: 'User was successfully created.' 
         end
         format.json { render action: 'show', status: :created, location: @user }
       else
@@ -61,7 +61,7 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit(:name, :email,:password, :password_confirmation)
+      params.require(:user).permit(:name, :email,:password, :password_confirmation, :state, :district)
     end
 
     def check_correct_user

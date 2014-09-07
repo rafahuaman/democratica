@@ -11,6 +11,7 @@ describe "User Pages" do
 
     it { should have_content(user.name) }
     it { should have_title(user.name) }
+    it { should have_content(user.state) }
   end
 
   describe "signup page" do
@@ -52,10 +53,39 @@ describe "User Pages" do
         it {should have_user_creation_success_message }
       end
 
-      describe "Enter Add Congressional District Form" do
+      describe "Enter Add State Form" do
         before { click_button submit }
         it { should have_content("State") }
-        it { should have_content("District") }
+        
+        describe "after valid state selection and submission" do
+          let(:sample_user) { User.last }
+          before do
+            find('.select.optional#user_state').find(:xpath, 'option[2]').select_option
+            click_button "Next"
+          end
+
+          it "should show district form label" do
+            expect(find('.control-label')).to have_content("District")
+          end
+
+          it "should update the user's state " do
+            expect(sample_user.reload.state).not_to be_nil
+          end
+
+          describe "Enter Add Congressional district Form" do
+            before do
+              find('.select.optional#user_district').find(:xpath, 'option[2]').select_option
+              click_button "Next"
+            end
+
+            it "should update the user's district" do
+              expect(sample_user.reload.district).not_to be_nil
+            end
+
+            it { should have_title("Home") }
+            it { should have_content("You have successfully completed your profile") }
+          end
+        end
       end
     end
   end
@@ -75,7 +105,7 @@ describe "User Pages" do
     describe "with invalid information" do
       before { click_button submit }
 
-      it { should have_selector('div.alert-box.alert') }
+      #it { should have_selector('div.alert-box.alert') }
     end
     
     describe "with valid information" do

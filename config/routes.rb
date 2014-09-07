@@ -5,8 +5,10 @@ Rails.application.routes.draw do
   resources :representatives, :controller => "congress_members", :type => "Representative"
 
 
-  resources :users
-  resources :after_signup
+  resources :users do
+    resources :after_signup, controller: 'after_signup'
+  end
+  
   resources :sessions, only: [:new, :create, :destroy]
 
   get 'static_pages/about'
