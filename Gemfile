@@ -11,6 +11,8 @@ gem 'faker'
 gem 'will_paginate'
 gem 'will_paginate-foundation'
 gem 'wicked'
+gem 'geocoder'
+gem 'congress', '~> 0.2.4'
 
 
 group :development, :test do
