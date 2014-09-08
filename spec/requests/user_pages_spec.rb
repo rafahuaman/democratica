@@ -73,17 +73,40 @@ describe "User Pages" do
           end
 
           describe "Enter Add Congressional district Form" do
-            before do
-              find('.select.optional#user_district').find(:xpath, 'option[2]').select_option
-              click_button "Next"
-            end
 
-            it "should update the user's district" do
-              expect(sample_user.reload.district).not_to be_nil
-            end
+            describe "submit valid information" do
+              before do
+                find('.select.optional#user_district').find(:xpath, 'option[2]').select_option
+                click_button "Next"
+              end
 
-            it { should have_title("Home") }
-            it { should have_content("You have successfully completed your profile") }
+              it "should update the user's district" do
+                expect(sample_user.reload.district).not_to be_nil
+              end
+
+              it { should have_title("Home") }
+              it { should have_content("You have successfully completed your profile") }
+            end
+            
+            describe "Find Congressional District Helper form" do
+              it { should have_content("Address") }
+              it { should have_content("City") }
+              it { should have_content("State") }
+
+              describe "Using helper form with valid information" do
+                before do
+                  fill_in "Address", with: "1600 Pennsylvania Ave NW" 
+                  fill_in "City", with: "Washington" 
+                  fill_in "State", with: "DC" 
+                  click_button "Find"
+                end
+
+                it "should show an alter box with the found congressional district  the user's state " do
+                  alert = page.driver.browser.switch_to.alert
+                  expect(alert.text).to equal("The address entered belong's to DC's #{district} congressional district")
+                end
+              end
+            end
           end
         end
       end
