@@ -1,0 +1,8 @@
+<div class="form congressional-district-form">
+  <%= form_tag find_congressional_district_path, method: :get, remote: true do %>
+    <%= text_field_tag "address",'', placeholder: "123 street" %>
+    <%= text_field_tag "city",'', placeholder: "city" %>
+    <%= text_field_tag "state", @user.state %>
+    <%= submit_tag "Find" %>
+  <% end %>
+</div>

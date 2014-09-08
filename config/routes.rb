@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   resources :senators, :controller => "congress_members", :type => "Senator"
   resources :representatives, :controller => "congress_members", :type => "Representative"
 
+  resources :sessions, only: [:index]
+  match '/find_congressional_district', to: 'find_congressional_district#index', via: 'get'
 
   resources :users do
     resources :after_signup, controller: 'after_signup'

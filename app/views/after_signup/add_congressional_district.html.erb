@@ -4,3 +4,6 @@
   <%= f.input :district, collection: us_congressional_districts[@user.state.to_sym] %>
   <%= f.button :submit, "Next" %>
 <% end %>
+
+<h5>Don't know your congressional district? we can help you find it!</h5>
+<%= render 'find_congressional_district/form' %>
