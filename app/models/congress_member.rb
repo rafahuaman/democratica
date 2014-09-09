@@ -26,9 +26,3 @@ class CongressMember < ActiveRecord::Base
     type == Senator.name
   end
 end
-
-class Representative < CongressMember
-end
-
-class Senator < CongressMember
-end
