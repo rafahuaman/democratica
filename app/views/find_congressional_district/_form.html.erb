@@ -6,6 +6,13 @@
     <%= text_field_tag "city",'', placeholder: "city" %>
     <%= label_tag 'state', 'State' %>
     <%= text_field_tag "state", @user.state %>
-    <%= submit_tag "Find", class: "button tiny" %>
+    <%= submit_tag "Find", class: "button tiny"%>
   <% end %>
+</div>
+
+
+<div id="found-district-modal" class="reveal-modal" data-reveal>
+  <h2>Hope this helps!</h2>
+  <p class="district-modal-paragraph"></p>
+  <a class="close-reveal-modal">&#215;</a>
 </div>

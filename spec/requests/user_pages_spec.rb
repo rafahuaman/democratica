@@ -94,16 +94,19 @@ describe "User Pages" do
               it { should have_content("State") }
 
               describe "Using helper form with valid information" do
+                let(:address) { "1600 Pennsylvania Ave NW" }
+                let(:city) { "Washington" }
+                let(:state) { "DC" }
+
                 before do
-                  fill_in "Address", with: "1600 Pennsylvania Ave NW" 
-                  fill_in "City", with: "Washington" 
-                  fill_in "State", with: "DC" 
-                  click_button "Find"
+                  fill_in "Address", with: address
+                  fill_in "City", with: city
+                  fill_in "State", with: state 
                 end
 
-                it "should show an alter box with the found congressional district  the user's state " do
-                  alert = page.driver.browser.switch_to.alert
-                  expect(alert.text).to equal("The address entered belong's to DC's #{district} congressional district")
+                it "should respond with javascript" do
+                  xhr :get, find_congressional_district_path, { address: address , city: city , state: state }
+                  response.should render_template('find_congressional_district/index', :format => 'js')
                 end
               end
             end
