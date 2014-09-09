@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20140904042608) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "state"
-    t.string   "district"
+    t.integer  "district"
     t.string   "party"
     t.string   "twitter_handle"
     t.datetime "created_at"
