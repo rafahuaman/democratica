@@ -13,4 +13,14 @@ describe Identity do
   it { should respond_to(:uid) }
   it { should respond_to(:user) }
   it { should be_valid }
+
+  describe "when provider is not present" do
+    before { @identity.provider = " " }
+    it { should_not be_valid }
+  end
+
+  describe "when uid is not present" do
+    before { @identity.uid = " " }
+    it { should_not be_valid }
+  end
 end
