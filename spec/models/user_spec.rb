@@ -20,7 +20,9 @@ describe User do
 
   it { should respond_to(:rallies) }
 
-   it { should respond_to(:admin) }
+  it { should respond_to(:admin) }
+
+  it { should respond_to(:identity) }
   
   
   it { should be_valid }
