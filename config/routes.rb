@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  match '/auth/:provider/callback', to: 'identities#create', via: 'get'
   resources :rallies
   resources :congress_members
   resources :senators, :controller => "congress_members", :type => "Senator"
@@ -10,6 +11,7 @@ Rails.application.routes.draw do
   resources :users do
     resources :after_signup, controller: 'after_signup'
   end
+  resources :identities
   
   resources :sessions, only: [:new, :create, :destroy]
 

@@ -1,7 +1,7 @@
 class AfterSignupController < ApplicationController
   include Wicked::Wizard
 
-  steps :add_state, :add_congressional_district
+  steps :add_state, :add_congressional_district, :add_twitter
 
   def show
     @user = current_user
