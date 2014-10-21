@@ -3,9 +3,19 @@ class IdentitiesController < ApplicationController
   end
   
   def create
-    render :text => request.env["omniauth.auth"].to_yaml
+    #current_user.identity.build(provider: auth_hash["provider"], uid: auth_hash["uid"])
+    redirect_to root_url, notice: "Authentication successful."
   end
   
   def destroy
+  end
+
+  def failure
+    redirect_to root_url, alert: "Twitter account sync failed."
+  end
+
+private
+  def auth_hash
+    request.env['omniauth.auth']
   end
 end
