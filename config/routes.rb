@@ -1,10 +1,14 @@
 Rails.application.routes.draw do
-  match '/auth/:provider/callback', to: 'identities#create', via: 'get'
-  match '/auth/failure', :to => 'identities#failure', via: 'get'
+  
   resources :rallies
   resources :congress_members
   resources :senators, :controller => "congress_members", :type => "Senator"
   resources :representatives, :controller => "congress_members", :type => "Representative"
+  resources :identities
+
+  get '/auth/:provider/callback', to: 'identities#create'
+  #match '/auth/:provider/callback', to: 'identities#create'
+  #match '/auth/failure', :to => 'identities#failure', via: 'get'
 
   resources :sessions, only: [:index]
   match '/find_congressional_district', to: 'find_congressional_district#index', via: 'get'
@@ -12,7 +16,7 @@ Rails.application.routes.draw do
   resources :users do
     resources :after_signup, controller: 'after_signup'
   end
-  resources :identities
+  
   
   resources :sessions, only: [:new, :create, :destroy]
 
