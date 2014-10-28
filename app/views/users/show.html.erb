@@ -1,4 +1,5 @@
 <% provide(:title, @user.name) %>
 <h1><%= @user.name %></h1>
-<p><%= @user.state %></p>
-<p><%= @user.district %></p>
+<p><b>State: </b> <%= @user.state %></p>
+<p><b>Congressional District: </b><%= @user.district %></p>
+<p><b>Twitter UID: </b><%= @user.identity.uid %></p>

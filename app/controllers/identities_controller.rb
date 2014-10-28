@@ -1,14 +1,19 @@
 class IdentitiesController < ApplicationController
   def index
+    @identity = current_user.identity
   end
   
   def create
-    #current_user.identity.build(provider: auth_hash["provider"], uid: auth_hash["uid"])
+    current_user.create_identity(provider: auth_hash["provider"], uid: auth_hash["uid"])
     redirect_to root_url, notice: "Authentication successful."
   end
   
   def destroy
+    current_user.identity.destroy
+    flash[:notice] = "Successfully destroyed identity."
+    redirect_to identities_url
   end
+
 
   def failure
     redirect_to root_url, alert: "Twitter account sync failed."
