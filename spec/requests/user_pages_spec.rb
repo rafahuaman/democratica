@@ -84,8 +84,8 @@ describe "User Pages" do
                 expect(sample_user.reload.district).not_to be_nil
               end
 
-              it { should have_title("Home") }
-              it { should have_content("You have successfully completed your profile") }
+              it { should have_link("Add Twitter", "/auth/twitter") }
+              #it { should have_content("You have successfully completed your profile") }
             end
             
             describe "Find Congressional District Helper form" do

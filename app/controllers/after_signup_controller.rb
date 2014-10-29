@@ -16,7 +16,6 @@ class AfterSignupController < ApplicationController
   end
 
   def finish_wizard_path
-    flash[:notice] = "You have successfully completed your profile"
     root_url #user_path(current_user)
   end
 

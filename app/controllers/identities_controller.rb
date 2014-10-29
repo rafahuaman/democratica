@@ -5,7 +5,7 @@ class IdentitiesController < ApplicationController
   
   def create
     current_user.create_identity(provider: auth_hash["provider"], uid: auth_hash["uid"])
-    redirect_to root_url, notice: "Authentication successful."
+    redirect_to root_url, notice: "You have successfully completed your profile"
   end
   
   def destroy

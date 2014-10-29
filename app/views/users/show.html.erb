@@ -2,4 +2,6 @@
 <h1><%= @user.name %></h1>
 <p><b>State: </b> <%= @user.state %></p>
 <p><b>Congressional District: </b><%= @user.district %></p>
-<p><b>Twitter UID: </b><%= @user.identity.uid %></p>
+<% if @user.identity %>
+  <p><b>Twitter UID: </b><%= @user.identity.uid %></p>
+<% end %>
