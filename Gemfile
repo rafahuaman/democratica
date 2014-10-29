@@ -15,6 +15,8 @@ gem 'geocoder'
 gem 'congress', '~> 0.2.4'
 gem 'omniauth'
 gem 'omniauth-twitter'
+gem 'twitter'
+
 
 
 group :development, :test do

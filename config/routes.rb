@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   
+  get 'tweets/new'
+
+  get 'tweets/create'
+
   resources :rallies
   resources :congress_members
   resources :senators, :controller => "congress_members", :type => "Senator"
