@@ -85,7 +85,6 @@ describe "User Pages" do
               end
 
               it { should have_link("Add Twitter", "/auth/twitter") }
-              #it { should have_content("You have successfully completed your profile") }
             end
             
             describe "Find Congressional District Helper form" do

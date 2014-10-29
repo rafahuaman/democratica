@@ -9,10 +9,11 @@ Rails.application.routes.draw do
   resources :senators, :controller => "congress_members", :type => "Senator"
   resources :representatives, :controller => "congress_members", :type => "Representative"
   resources :identities
+  resources :tweets, only: [:new, :create]
 
   get '/auth/:provider/callback', to: 'identities#create'
-  #match '/auth/:provider/callback', to: 'identities#create'
-  #match '/auth/failure', :to => 'identities#failure', via: 'get'
+  #get 'auth/failure', to: redirect('/')
+  match '/auth/failure', :to => 'identities#failure', via: 'get'
 
   resources :sessions, only: [:index]
   match '/find_congressional_district', to: 'find_congressional_district#index', via: 'get'

@@ -18,6 +18,17 @@ class User < ActiveRecord::Base
     Digest::SHA1.hexdigest(token.to_s)
   end
 
+  def tweet(tweet)
+    client = Twitter::REST::Client.new do |config|
+      config.consumer_key        = Rails.application.config.twitter_key
+      config.consumer_secret     = Rails.application.config.twitter_secret
+      config.access_token        = identity.access_token
+      config.access_token_secret = identity.access_secret
+    end
+    
+    client.update(tweet)
+  end
+
   private
   
     def create_remember_token

@@ -10,13 +10,12 @@ class AfterSignupController < ApplicationController
 
   def update
     @user = current_user
-    #@user.update(user_params)
     @user.update(after_signup_params)
     render_wizard @user
   end
 
   def finish_wizard_path
-    root_url #user_path(current_user)
+    root_url
   end
 
 
