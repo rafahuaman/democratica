@@ -7,6 +7,9 @@
         <strong>Twitter template:</strong>
         <%= @rally.twitter_template %>
       </p>
+      <%= link_to 'Tweet', tweets_path(tweet: { message: @rally.twitter_template }), 
+        class: "button", method: :post, remote: true,  data: { confirm: "Tweet the template?" } %>
+     
     </div>
   </div>
   <hr>  
