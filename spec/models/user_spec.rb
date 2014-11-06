@@ -23,6 +23,8 @@ describe User do
   it { should respond_to(:admin) }
 
   it { should respond_to(:identity) }
+
+  it { should respond_to(:support) }
   
   
   it { should be_valid }

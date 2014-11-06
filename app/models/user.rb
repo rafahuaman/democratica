@@ -29,6 +29,10 @@ class User < ActiveRecord::Base
     client.update(tweet)
   end
 
+  def support(rally)
+    
+  end
+
   private
   
     def create_remember_token
