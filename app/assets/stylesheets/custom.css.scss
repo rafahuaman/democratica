@@ -41,3 +41,19 @@ $grayLighter: #eee;
   }
 }
 
+/*  Rallies */
+.rally-grid-spacing {
+  > li:first-child {
+    width:105px;
+  }
+
+  > li:last-child {
+    width: 73%;
+  } 
+}
+
+.score-grid {
+  text-align: center;  
+  margin-top: 10px;
+}
+
