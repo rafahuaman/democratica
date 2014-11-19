@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe "Congress Member Pages" do
-  let(:rep) { FactoryGirl.create(:representative) }
+  let!(:rep) { FactoryGirl.create(:representative) }
   let(:senator) { FactoryGirl.create(:senator) }
   let(:admin) { FactoryGirl.create(:admin) }
   

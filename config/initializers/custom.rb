@@ -1,1 +1,2 @@
 require_dependency "twitter_adapter"
+require_dependency "congress_member_finder"

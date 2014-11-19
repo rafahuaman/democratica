@@ -20,12 +20,12 @@ FactoryGirl.define do
     twitter_handle "@handle"
     type "Representative"
 
-    factory :senator do
+    factory :senator, class: Senator do
       district "N/A"
       type "Senator"
     end
 
-    factory :representative do
+    factory :representative, class: Representative do
       type "Representative"
     end
   end
