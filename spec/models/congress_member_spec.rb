@@ -9,7 +9,7 @@ describe CongressMember do
 
   describe "instance" do
     before do
-      @rep = CongressMember.new(first_name: "first", last_name: "last", state: "DC", district: 1, party: "R", twitter_handle: "@handle", type: "Representative")
+      @rep = CongressMember.new(first_name: "first", last_name: "last", state: "DC", district: 1, party: "R", twitter_handle: "@handle", type_by_house: "Representative")
     end
       
     subject { @rep }
@@ -20,10 +20,10 @@ describe CongressMember do
     it { should respond_to(:district) }
     it { should respond_to(:party) }
     it { should respond_to(:twitter_handle) }
-    it { should respond_to(:type) }
+    it { should respond_to(:type_by_house) }
 
     its(:full_name) { should eq "#{@rep.first_name} #{@rep.last_name}" }
-    its(:name_with_title) { should eq "#{@rep.type} #{@rep.first_name} #{@rep.last_name}" }
+    its(:name_with_title) { should eq "#{@rep.type_by_house} #{@rep.first_name} #{@rep.last_name}" }
     it { should be_representative }
     
     it { should be_valid }
@@ -38,19 +38,19 @@ describe CongressMember do
       it { should_not be_valid }
     end
 
-    describe "when type is not present" do
-      before { @rep.type = " " }
+    describe "when type_by_house is not present" do
+      before { @rep.type_by_house = " " }
       it { should_not be_valid }
     end
 
-    describe "when type is senator" do
-      before { @rep.type = "Senator" }
+    describe "when type_by_house is senator" do
+      before { @rep.type_by_house = "Senator" }
       it { should be_valid }
       it { should be_senator }
     end
 
-    describe "when type is not valid" do
-      before { @rep.type = "congressperson" }
+    describe "when type_by_house is not valid" do
+      before { @rep.type_by_house = "congressperson" }
       it { should_not be_valid }
     end
     

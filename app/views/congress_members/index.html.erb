@@ -4,7 +4,7 @@
 <ul>
   <% @congress_members.each do |member| %>
   <li>
-    <%= link_to  member.full_name, member %>, <%= member.state %>, <%= member.type %>
+    <%= link_to  member.full_name, member %>, <%= member.state %>, <%= member.type_by_house %>
     <% if member.representative? %>
       of the <%= member.district.ordinalize %> district
     <% end %>

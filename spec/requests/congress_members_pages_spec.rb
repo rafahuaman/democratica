@@ -13,12 +13,6 @@ describe "Congress Member Pages" do
 
     it { should have_title(rep.full_name) }
     it { should have_representative_show_data(rep) }
-    # it { should have_title(rep.full_name) }
-    # it { should have_content(rep.state) }
-    # it { should have_content(rep.district) }
-    # it { should have_content(rep.party) }
-    # it { should have_content(rep.twitter_handle) }
-    # it { should have_content(rep.type) }
   end
 
   describe "create a congress member" do
@@ -50,7 +44,7 @@ describe "Congress Member Pages" do
         district: 2, 
         party: "D", 
         twitter_handle: "@NewHandle", 
-        type: "Senator" } 
+        type_by_house: "Senator" } 
       end
       
       before { valid_congress_member_form_completion(congress_member_form_information) }
@@ -94,7 +88,7 @@ describe "Congress Member Pages" do
     
     describe "with valid information" do
       let(:congress_member_form_information) { { first_name: "NewName", last_name: "NewSurname",
-                                                state: "DC", district: 2, party: "D", twitter_handle: "@NewHandle", type: "Senator" } }
+                                                state: "DC", district: 2, party: "D", twitter_handle: "@NewHandle", type_by_house: "Senator" } }
       before do 
         valid_congress_member_form_completion(congress_member_form_information) 
         click_button submit

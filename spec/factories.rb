@@ -11,22 +11,22 @@ FactoryGirl.define do
     end
   end
 
-  factory :congress_member do
+  factory :congress_member, class: CongressMember  do
     sequence(:first_name)  { |n| "name #{n}" }
     sequence(:last_name)  { |n| "last name #{n}" }
     state "DC"
     sequence(:district)  { |n|  n }
     party "R"
     twitter_handle "@handle"
-    type "Representative"
+    type_by_house "Representative"
 
-    factory :senator, class: Senator do
+    factory :senator  do
       district "N/A"
-      type "Senator"
+      type_by_house "Senator"
     end
 
-    factory :representative, class: Representative do
-      type "Representative"
+    factory :representative do
+      type_by_house "Representative"
     end
   end
 

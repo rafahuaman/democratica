@@ -1,2 +1,2 @@
-class Senator < CongressMember
+class Senator
 end

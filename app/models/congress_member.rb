@@ -3,7 +3,7 @@ class CongressMember < ActiveRecord::Base
   validates :last_name, presence: true, length: { maximum: 50 }
   validates :district, uniqueness: { scope: [:state], message: "This state's district is already taken." } 
   validates :state, presence: true, length: { maximum: 2 }
-  validates :type, presence: true, inclusion: { in: %w(Representative Senator),
+  validates :type_by_house, presence: true, inclusion: { in: %w(Representative Senator),
     message: "%{value} is not a valid Type" }
 
   def self.types
@@ -15,14 +15,14 @@ class CongressMember < ActiveRecord::Base
   end
   
   def name_with_title
-    self.type + " " + full_name
+    self.type_by_house + " " + full_name
   end
 
   def representative?
-    type == Representative.name 
+    type_by_house == Representative.name 
   end
   
   def senator?
-    type == Senator.name
+    type_by_house == Senator.name
   end
 end

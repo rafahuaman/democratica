@@ -1,2 +1,2 @@
-class Representative < CongressMember
+class Representative
 end

@@ -6,7 +6,7 @@ module CongressMemberUtility
     fill_in 'District', with: member_info[:district]
     fill_in 'Party', with: member_info[:party]
     fill_in 'Twitter handle', with: member_info[:twitter_handle]
-    select member_info[:type], :from => 'Type'
+    select member_info[:type_by_house], :from => 'Type by house'
   end
 
   RSpec::Matchers.define :have_new_congress_member_page_appearance do
@@ -19,7 +19,7 @@ module CongressMemberUtility
       expect(page).to have_content('District')
       expect(page).to have_content('Party')
       expect(page).to have_content('Twitter handle')
-      expect(page).to have_content('Type')
+      expect(page).to have_content('Type by house')
     end
   end
 
@@ -30,7 +30,7 @@ module CongressMemberUtility
       expect(page).to have_content(congress_member[:state])
       expect(page).to have_content(congress_member[:party])
       expect(page).to have_content(congress_member[:twitter_handle])
-      expect(page).to have_content(congress_member[:type])
+      expect(page).to have_content(congress_member[:type_by_house])
     end
   end
 
@@ -42,7 +42,7 @@ module CongressMemberUtility
       expect(page).to have_content(congress_member[:state])
       expect(page).to have_content(congress_member[:party])
       expect(page).to have_content(congress_member[:twitter_handle])
-      expect(page).to have_content(congress_member[:type])
+      expect(page).to have_content(congress_member[:type_by_house])
     end
   end
 
