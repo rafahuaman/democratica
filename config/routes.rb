@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  resources :comments
+
   get 'tweets/new'
 
   get 'tweets/create'
