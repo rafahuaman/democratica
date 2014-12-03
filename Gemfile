@@ -16,7 +16,7 @@ gem 'congress', '~> 0.2.4'
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'twitter'
-
+gem 'closure_tree'
 
 
 group :development, :test do

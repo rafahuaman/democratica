@@ -7,6 +7,6 @@ class CreateComments < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :comments, [:rally, :user, :created_at]
+    add_index :comments, [:rally_id, :user_id, :created_at]
   end
 end

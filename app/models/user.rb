@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_many :rallies
+  has_many :comments
   has_one :identity
   before_save { self.email = email.downcase }
   before_create :create_remember_token
