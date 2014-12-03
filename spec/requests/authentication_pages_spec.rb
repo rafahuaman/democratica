@@ -143,6 +143,35 @@ describe "Authentication" do
       end
     end
 
+    describe "in the comment controller" do
+      let(:comment) { FactoryGirl.create(:comment) }
+
+      describe "visiting the new page" do
+          before { visit new_comment_path }
+          it { should have_title('Sign in') }
+        end
+
+        describe "visiting the edit page" do
+          before { visit edit_comment_path(comment) }
+          it { should have_title('Sign in') }
+        end
+
+        describe "submitting to the update action" do
+          before { patch comment_path(comment) }
+          specify { expect(response).to redirect_to(signin_path) }
+        end
+
+        describe "submitting to the create action" do
+          before { post comments_path }
+          specify { expect(response).to redirect_to(signin_path) }
+        end
+
+        describe "submitting to the destroy action" do
+          before { delete comment_path(comment) }
+          specify { expect(response).to redirect_to(signin_path) }
+        end
+    end
+
     describe "as wrong user" do
       let(:wrong_user) { FactoryGirl.create(:user, email: "wrong@example.com") }
       
@@ -162,7 +191,7 @@ describe "Authentication" do
         end
       end
 
-      describe "in the Rallies controller" do
+      describe "in the rallies controller" do
         let(:rally) { FactoryGirl.create(:rally) }
         before { sign_in user, no_capybara: true }
 
@@ -178,6 +207,26 @@ describe "Authentication" do
         
         describe "submitting a DELETE request to the #delete action" do
           before { delete rally_path(rally) }
+          it { should respond_by_redirecting_to_root_page }
+        end
+      end
+
+      describe "in the Comments Controller" do
+        let(:rally) { FactoryGirl.create(:rally, user: wrong_user) }
+        let(:comment) { FactoryGirl.create(:comment, rally: rally,  user: wrong_user) }
+        
+        describe "submitting a GET request to the #edit action" do
+          before { get edit_comment_path(comment) }
+          it { should respond_by_redirecting_to_root_page }
+        end
+        
+        describe "submitting a PATCH request to the #update action" do
+          before { patch comment_path(comment) }
+          it { should respond_by_redirecting_to_root_page }
+        end
+        
+        describe "submitting a DELETE request to the #delete action" do
+          before { delete comment_path(comment) }
           it { should respond_by_redirecting_to_root_page }
         end
       end

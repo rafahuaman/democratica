@@ -36,4 +36,10 @@ FactoryGirl.define do
     twitter_template "#democratica"
     user
   end
+
+  factory :comment do
+    body "Lorem ipsum"
+    user
+    rally
+  end
 end
