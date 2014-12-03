@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   
-  resources :comments , only: [:index, :new, :create, :update]
+  resources :comments
 
   get 'tweets/new'
 

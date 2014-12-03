@@ -214,6 +214,7 @@ describe "Authentication" do
       describe "in the Comments Controller" do
         let(:rally) { FactoryGirl.create(:rally, user: wrong_user) }
         let(:comment) { FactoryGirl.create(:comment, rally: rally,  user: wrong_user) }
+        before { sign_in user, no_capybara: true }
         
         describe "submitting a GET request to the #edit action" do
           before { get edit_comment_path(comment) }

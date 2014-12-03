@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  before_action :check_signed_in_user, only: [:new, :create, :edit, :update, :destroy]
+  before_action :check_correct_user, only: [:edit, :update, :destroy] 
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
 
   # GET /comments
@@ -70,5 +72,10 @@ class CommentsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
       params.require(:comment).permit(:body, :user_id, :rally_id)
+    end
+
+    def check_correct_user
+      set_comment
+      redirect_incorrect_users_to_root(@comment.user_id)
     end
 end
