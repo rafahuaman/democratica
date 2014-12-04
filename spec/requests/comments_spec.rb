@@ -22,7 +22,7 @@ describe "Comments" do
         click_link comment
       end
       
-      it "should not create a rally" do
+      it "should not create a comment" do
         expect { click_button submit }.not_to change(Comment, :count)
       end
 
