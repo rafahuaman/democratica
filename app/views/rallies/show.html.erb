@@ -1,16 +1,4 @@
-<%= render 'rally_card', debate: @rally %>
-<div class="row">
-  <div class="large-12 small-12 columns">
-    <div class="debate-content">
-      <p><%= @rally.content %></p>
-      <p>
-        <strong>Twitter template:</strong>
-        <%= @rally.twitter_template %>
-      </p>
-      <%= link_to 'Tweet', tweets_path(tweet: { message: @rally.twitter_template }), 
+<%= render 'rally_header', rally: @rally %>
+<%= link_to 'Tweet', tweets_path(tweet: { message: @rally.twitter_template }), 
         class: "button", method: :post, remote: true,  data: { confirm: "Tweet the template?" } %>
-     
-    </div>
-  </div>
-  <hr>  
-</div>
+<%= link_to 'Comment', new_comment_path(rally_id: @rally.id), class: "button" %>

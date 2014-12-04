@@ -41,7 +41,7 @@ describe "Comments" do
         let(:valid_comment) { "valid_comment" }
         before do 
           click_link comment
-          fill_in "Content", with: valid_comment
+          fill_in "Body", with: valid_comment
         end
 
         it "should create Comment" do
@@ -66,7 +66,7 @@ describe "Comments" do
     let(:submit)  { "Save" }
     let(:original_body)  { "Orignal commeent" }
     let(:edited_body)  { "Edited Comment" }
-    let!(:comment) { FactoryGirl.create(:comment, content: original_body, rally: rally, user: user) }
+    let!(:comment) { FactoryGirl.create(:comment, body: original_body, rally: rally, user: user) }
 
     describe "as a valid user" do
       before do
