@@ -19,11 +19,14 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe CommentsController do
+  let(:user) { FactoryGirl.create(:user, name: "ArgumentPost")  }
+  let(:rally) { FactoryGirl.create(:rally)  }
+
 
   # This should return the minimal set of attributes required to create a valid
   # Comment. As you add validations to Comment, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "body" => "MyText" } }
+  let(:valid_attributes) { { body: "MyText", rally_id: rally.id, user_id: user.id } } 
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -47,6 +50,10 @@ describe CommentsController do
   end
 
   describe "GET new" do
+    before do 
+      sign_in user, no_capybara: true
+    end
+
     it "assigns a new comment as @comment" do
       get :new, {}, valid_session
       assigns(:comment).should be_a_new(Comment)
@@ -54,6 +61,10 @@ describe CommentsController do
   end
 
   describe "GET edit" do
+    before do 
+      sign_in user, no_capybara: true
+    end
+
     it "assigns the requested comment as @comment" do
       comment = Comment.create! valid_attributes
       get :edit, {:id => comment.to_param}, valid_session
@@ -62,6 +73,10 @@ describe CommentsController do
   end
 
   describe "POST create" do
+    before do 
+      sign_in user, no_capybara: true
+    end
+
     describe "with valid params" do
       it "creates a new Comment" do
         expect {
@@ -99,6 +114,10 @@ describe CommentsController do
   end
 
   describe "PUT update" do
+    before do 
+      sign_in user, no_capybara: true
+    end
+
     describe "with valid params" do
       it "updates the requested comment" do
         comment = Comment.create! valid_attributes
@@ -143,6 +162,10 @@ describe CommentsController do
   end
 
   describe "DELETE destroy" do
+    before do 
+      sign_in user, no_capybara: true
+    end
+
     it "destroys the requested comment" do
       comment = Comment.create! valid_attributes
       expect {
