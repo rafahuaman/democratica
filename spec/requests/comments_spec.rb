@@ -59,9 +59,10 @@ describe "Comments" do
         end
 
         describe "should show the comment's author" do
+          let(:last_comment) { Comment.last }
           before { click_button submit }
           it "should show the comment's author " do
-            expect(find("#comment-card-#{Comment.last.id}").find(".author")).to have_content(comment.user.name)
+            expect(find("#comment-card-#{last_comment.id}").find(".author")).to have_content(last_comment.user.name)
           end
         end
       end
@@ -90,6 +91,7 @@ describe "Comments" do
           click_button submit
         end
 
+        it { should have_rally_show_data(rally) }
         it { should have_content(edited_body) }
       end
     end
