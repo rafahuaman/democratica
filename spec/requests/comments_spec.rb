@@ -56,7 +56,14 @@ describe "Comments" do
         describe "should display the affirmative post" do
           before { click_button submit } 
           it { should have_content(valid_comment) }
-        end      
+        end
+
+        describe "should show the comment's author" do
+          before { click_button submit }
+          it "should show the comment's author " do
+            expect(find("#comment-card-#{Comment.last.id}").find(".author")).to have_content(comment.user.name)
+          end
+        end
       end
     end
   end

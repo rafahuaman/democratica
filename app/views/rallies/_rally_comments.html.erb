@@ -1,0 +1,7 @@
+  <div class="row" >
+    <div class="large-12 small-12 columns" id="rally_comments">
+    <% @rally.comments.each do |comment| %>
+      <%= render 'comments/comment', comment: comment %>
+    <% end %>
+    </div>
+  </div>

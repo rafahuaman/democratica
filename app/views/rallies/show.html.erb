@@ -2,3 +2,4 @@
 <%= link_to 'Tweet', tweets_path(tweet: { message: @rally.twitter_template }), 
         class: "button", method: :post, remote: true,  data: { confirm: "Tweet the template?" } %>
 <%= link_to 'Comment', new_comment_path(rally_id: @rally.id), class: "button" %>
+<%= render 'rally_comments', rally: @rally %>

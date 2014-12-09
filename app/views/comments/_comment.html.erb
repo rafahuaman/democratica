@@ -1,0 +1,27 @@
+      <div class="panel comment" id=<%= "#{comment.id}" %> >
+
+        <div class="row comment-voting-grid" id=<%= "comment-card-#{comment.id}" %> >
+          <% @votable = comment %>
+          <div class="small-2 columns" id=<%= "score-grid-comment-#{comment.id}" %> >
+            <%#= render 'votes/comment_voting_grid' %>
+          </div>
+          <div class="secondary label author small-3 columns" >
+            <%= comment.user.name %>
+          </div>
+          <div class= "small-7 columns"></div>
+        </div>
+
+
+        <div class = "row">
+          <div class= "small-1 columns"></div>
+          <div class= "small-11 columns">
+            <div class="comment_body"  >
+              <p><%= h(comment.body).gsub(/\n/, '<br/>').html_safe %></p>
+            </div>
+            <% # = # render 'comments/comment_links', comment: comment %>
+            <% # comment.agreeing_children.each do |child_post| %>
+              <% # = render 'comments/comment', comment: child_post %>
+            <% # end %>
+          </div>        
+        </div>
+      </div>

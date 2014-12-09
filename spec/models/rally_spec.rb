@@ -13,6 +13,7 @@ describe Rally do
   it { should respond_to(:content) }
   it { should respond_to(:twitter_template) }
   it { should respond_to(:user) }
+  it { should respond_to(:comments) }
   
   it { should be_valid }
   
