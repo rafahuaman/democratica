@@ -15,8 +15,8 @@ describe Comment do
   it { should respond_to :body }
   it { should respond_to :user }
   it { should respond_to :rally }
-  # it { should respond_to :children }
-  # it { should respond_to :parent }
+  it { should respond_to :children }
+  it { should respond_to :parent }
   # it { should respond_to :votes }
   its(:user) { should eq user }
   its(:rally) { should eq rally }
@@ -51,16 +51,16 @@ describe Comment do
     end
   end  
 
-  # describe "Parent" do
-  #   describe "when it is missing" do
-  #     it { should be_valid }
-  #   end
+  describe "Parent" do
+    describe "when it is missing" do
+      it { should be_valid }
+    end
 
-  #   describe "when it is present" do
-  #     let(:parent_post) { FactoryGirl.create(:original_post)  }
-  #     before { @argument_post.parent = parent_post }
-  #     it { should be_valid }
-  #   end
-  # end  
+    describe "when it is present" do
+      let(:parent_post) { FactoryGirl.create(:comment)  }
+      before { @comment.parent = parent_post }
+      it { should be_valid }
+    end
+  end  
 
 end
