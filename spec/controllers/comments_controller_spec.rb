@@ -90,9 +90,9 @@ describe CommentsController do
         assigns(:comment).should be_persisted
       end
 
-      it "redirects to the created comment" do
+      it "redirects to the created comment's rally" do
         post :create, {:comment => valid_attributes}, valid_session
-        response.should redirect_to(Comment.last)
+        response.should redirect_to(Comment.last.rally)
       end
     end
 
@@ -135,10 +135,10 @@ describe CommentsController do
         assigns(:comment).should eq(comment)
       end
 
-      it "redirects to the comment" do
+      it "redirects to the comment's rally" do
         comment = Comment.create! valid_attributes
         put :update, {:id => comment.to_param, :comment => valid_attributes}, valid_session
-        response.should redirect_to(comment)
+        response.should redirect_to(comment.rally)
       end
     end
 
