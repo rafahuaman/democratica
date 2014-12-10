@@ -107,33 +107,37 @@ describe "Comments" do
     end
   end
 
-  # describe "Reply to a Comment" do
-  #   let(:reply) { "reply"}
-  #   let(:submit)  { "Save" }
-  #   let!(:comment_reply) { FactoryGirl.create(:comment_reply, rally: rally, user: user) }
+  describe "Reply to a Comment" do
+    let(:reply) { "reply"}
+    let(:submit)  { "Save" }
+    let!(:root_comment) { FactoryGirl.create(:comment, rally: rally, user: user) }
     
-  #   before do
-  #     sign_in user
-  #     visit rally_path(rally)
-  #     click_link reply
-  #   end
+    before do
+      sign_in user
+      visit rally_path(rally)
+      click_link reply
+    end
 
-  #   it { should have_content "Post a Comment" }
+    it { should have_content "Post a Comment" }
 
-  #   describe "Should create a nested Comment" do
-  #     before do 
-  #       fill_in "Body", with: "Valid reply"
-  #       click_button submit
-  #     end
+    describe "Should create a nested Comment" do
+      before do 
+        fill_in "Body", with: "Valid reply"
+        click_button submit
+      end
 
-  #     it { should have_rally_show_data(rally) }
-  #     it { should have_content("Valid reply") }
+      it "should create a comment with a parent_id " do
+        expect(Comment.last.parent).to eq(root_comment)
+      end
 
-  #     it "should be nested " do
-  #       expect(find("div.comment##{comment.id}")).to have_content('Valid reply')
-  #     end
-  #   end
-  # end
+      it { should have_rally_show_data(rally) }
+      it { should have_content("Valid reply") }
+
+      it "should be nested " do
+        expect(find("div.comment##{root_comment.id}")).to have_content('Valid reply')
+      end
+    end
+  end
   
   # describe "voting" do
   #   let!(:argument_post) { FactoryGirl.create(:original_post, content: "Test content", rally: rally, user: user) }
