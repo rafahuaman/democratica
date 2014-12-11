@@ -1,5 +1,8 @@
         <small>
           <ul class="button-group comment-links" >
+            <li><%= link_to "reply", 
+                      new_comment_path(rally_id: comment.rally_id, 
+                                      parent_id: comment.id), class: "tiny button secondary"  %></li>
             <% if signed_in? and current_user?(comment.user) %>
               <li><%= link_to 'edit', 
                         edit_comment_path(comment, 

@@ -19,9 +19,9 @@
               <p><%= h(comment.body).gsub(/\n/, '<br/>').html_safe %></p>
             </div>
             <%= render 'comments/comment_links', comment: comment %>
-            <% # comment.agreeing_children.each do |child_post| %>
-              <% # = render 'comments/comment', comment: child_post %>
-            <% # end %>
+            <% comment.children.each do |reply_comment| %>
+              <%= render 'comments/comment', comment: reply_comment %>
+            <% end %>
           </div>        
         </div>
       </div>

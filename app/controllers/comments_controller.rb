@@ -26,7 +26,13 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comments.json
   def create
-    @comment = current_user.comments.build(comment_params)
+    if comment_params[:parent_id].to_i > 0
+      parent = Comment.find_by_id(comment_params[:parent_id])
+      @comment = current_user.comments.build(comment_params)
+      parent.add_child @comment
+    else
+      @comment = current_user.comments.build(comment_params)
+    end
 
     respond_to do |format|
       if @comment.save
@@ -71,7 +77,7 @@ class CommentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
-      params.require(:comment).permit(:body,:user_id, :rally_id)
+      params.require(:comment).permit(:body,:user_id, :rally_id, :parent_id)
     end
 
     def check_correct_user
