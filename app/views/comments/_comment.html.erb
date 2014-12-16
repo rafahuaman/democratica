@@ -2,26 +2,32 @@
 
         <div class="row comment-voting-grid" id=<%= "comment-card-#{comment.id}" %> >
           <% @votable = comment %>
-          <div class="small-2 columns" id=<%= "score-grid-comment-#{comment.id}" %> >
+          <div class="small-1 columns spacer-column" id=<%= "score-grid-comment-#{comment.id}" %> >
             <%#= render 'votes/comment_voting_grid' %>
           </div>
-          <div class="secondary label author small-3 columns" >
-            <%= comment.user.name %>
-          </div>
-          <div class= "small-7 columns"></div>
-        </div>
-
-
-        <div class = "row">
-          <div class= "small-1 columns"></div>
-          <div class= "small-11 columns">
-            <div class="comment_body"  >
-              <p><%= h(comment.body).gsub(/\n/, '<br/>').html_safe %></p>
+          <div class= "small-11 columns comment-content">
+            <div class = "row">
+              <div class="secondary label author small-3 columns" >
+                <%= comment.user.name %>
+              </div>
+              <div class= "small-9 columns"></div>
             </div>
-            <%= render 'comments/comment_links', comment: comment %>
-            <% comment.children.each do |reply_comment| %>
-              <%= render 'comments/comment', comment: reply_comment %>
-            <% end %>
-          </div>        
+            <div class = "row">
+              <div class= "small-12 columns ">
+                <div class="comment_body"  >
+                  <p><%= h(comment.body).gsub(/\n/, '<br/>').html_safe %></p>
+                </div>
+                <%= render 'comments/comment_links', comment: comment %>
+                <% comment.children.each do |reply_comment| %>
+                  <div class = "child_comment">
+                    <%= render 'comments/comment', comment: reply_comment %>  
+                  </div>
+                <% end %>
+              </div>        
+            </div>
+          </div>
         </div>
       </div>
+
+
+        
