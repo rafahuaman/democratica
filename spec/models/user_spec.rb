@@ -17,14 +17,17 @@ describe User do
   it { should respond_to(:district) }
   it { should respond_to(:authenticate) }
   it { should respond_to(:remember_token) }
-
   it { should respond_to(:rallies) }
-
   it { should respond_to(:admin) }
-
   it { should respond_to(:identity) }
-
   it { should respond_to(:support) }
+  it { should respond_to(:votes) }
+  it { should respond_to(:vote!) }
+  it { should respond_to(:unvote!) }
+  it { should respond_to(:upvote!) }
+  it { should respond_to(:downvote!) }
+  it { should respond_to(:has_voted_on?) }
+  it { should respond_to(:find_vote) }
   
   
   it { should be_valid }

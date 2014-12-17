@@ -17,9 +17,10 @@ describe Comment do
   it { should respond_to :rally }
   it { should respond_to :children }
   it { should respond_to :parent }
-  # it { should respond_to :votes }
+  it { should respond_to :votes }
   its(:user) { should eq user }
   its(:rally) { should eq rally }
+  its(:vote_type) { should eq "Comment" }
   
   it { should be_valid }
   

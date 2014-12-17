@@ -14,6 +14,9 @@ describe Rally do
   it { should respond_to(:twitter_template) }
   it { should respond_to(:user) }
   it { should respond_to(:comments) }
+  it { should respond_to :votes }
+  it { should respond_to :score }
+  its(:vote_type) { should eq "Rally" }
   
   it { should be_valid }
   
