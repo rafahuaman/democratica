@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   has_many :rallies
   has_many :comments
   has_one :identity
+  has_many :votes
   before_save { self.email = email.downcase }
   before_create :create_remember_token
   validates :name, presence: true, length: { maximum: 50 }
