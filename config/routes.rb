@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     resources :after_signup, controller: 'after_signup'
   end
   
+  resources :votes, only: [:create, :update, :destroy]
   
   resources :sessions, only: [:new, :create, :destroy]
 

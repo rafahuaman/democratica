@@ -2,6 +2,8 @@
   <div class="small-12 columns">
     <ul class="rally-grid-spacing small-block-grid-2 large-block-grid-2">
       <li class="score-grid" id=<%= "score-grid-rally-#{@rally.id}" %>>
+        <% @votable = @rally %>
+        <%= render 'votes/vote_form' %>
       </li>
       <li class="rally-description">
         <h5 class="content-title"><%= link_to "#{@rally.title}", rally_path(@rally) %></h5>
