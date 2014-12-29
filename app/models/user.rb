@@ -28,6 +28,36 @@ class User < ActiveRecord::Base
     
   end
 
+  def vote!(votable, vote_value)
+    if self.has_voted_on?(votable) 
+      vote = find_vote(votable)
+      vote.update(value: vote_value)
+    else
+    self.votes.create(votable_type: votable.vote_type, 
+                      votable_id: votable.id, value: vote_value)  
+    end
+  end
+
+  def has_voted_on?(votable)
+    find_vote(votable)
+  end
+
+  def find_vote(votable)
+    votes.find_by(votable_type: votable.vote_type, votable_id: votable.id)
+  end
+
+  def unvote!(votable)
+    find_vote(votable).destroy
+  end
+
+  def upvote!(votable)
+    vote!(votable,1)
+  end
+
+  def downvote!(votable)
+    vote!(votable,-1)
+  end
+
   private
   
     def create_remember_token
