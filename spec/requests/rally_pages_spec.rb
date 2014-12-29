@@ -46,91 +46,91 @@ describe "Rally pages" do
     # end
   end
 
-  # describe "votes" do
-  #   let(:other_user) { FactoryGirl.create(:user, name: "other user")  }
-  #   let(:downvoter) { FactoryGirl.create(:user, name: "downvoter")  }
-  #   before { visit root_path }
+  describe "votes" do
+    let(:other_user) { FactoryGirl.create(:user, name: "other user")  }
+    let(:downvoter) { FactoryGirl.create(:user, name: "downvoter")  }
+    before { visit root_path }
 
-  #   describe "buttons" do
+    describe "buttons" do
 
-  #     describe "as non signed-in user" do
-  #       describe "without votes" do
-  #         it { should have_selector('.vote.upvote.unclicked') }
-  #         it { should have_selector('.vote.downvote.unclicked') }
-  #       end
+      describe "as non signed-in user" do
+        describe "without votes" do
+          it { should have_selector('.vote.upvote.unclicked') }
+          it { should have_selector('.vote.downvote.unclicked') }
+        end
 
-  #       describe "with votes" do
-  #         before do
-  #           sign_in user
-  #           user.upvote!(debate)
-  #           click_link 'Sign out' 
-  #           visit root_path
-  #         end
-  #         it { should have_selector('.vote.upvote.unclicked') }
-  #         it { should have_selector('.vote.downvote.unclicked') }
-  #       end
-  #     end
+        describe "with votes" do
+          before do
+            sign_in user
+            user.upvote!(debate)
+            click_link 'Sign out' 
+            visit root_path
+          end
+          it { should have_selector('.vote.upvote.unclicked') }
+          it { should have_selector('.vote.downvote.unclicked') }
+        end
+      end
 
 
-  #     describe "after signing in" do
-  #       before do
-  #         sign_in user
-  #         visit root_path
-  #       end
+      describe "after signing in" do
+        before do
+          sign_in user
+          visit root_path
+        end
 
-  #       describe "without votes" do
-  #         it { should have_selector('.vote.upvote.unclicked') }
-  #         it { should have_selector('.vote.downvote.unclicked') }
-  #         it "should have a 0 score" do
-  #           expect(find("#debate-card-#{debate.id}").find(".debate-score")).to have_content(0)
-  #         end
+        describe "without votes" do
+          it { should have_selector('.vote.upvote.unclicked') }
+          it { should have_selector('.vote.downvote.unclicked') }
+          it "should have a 0 score" do
+            expect(find("#rally-card-#{rally.id}").find(".rally-score")).to have_content(0)
+          end
 
-  #         describe "Clicking the upvote link" do
-  #           it "should increment the debate score" do
-  #             find("#debate-card-#{debate.id}").find(".vote.upvote.unclicked").find('a').click
-  #             expect(find("#debate-card-#{debate.id}").find(".debate-score")).to have_content(1)
-  #           end
+          describe "Clicking the upvote link" do
+            it "should increment the rally score" do
+              find("#rally-card-#{rally.id}").find(".vote.upvote.unclicked").find('a').click
+              expect(find("#rally-card-#{rally.id}").find(".rally-score")).to have_content(1)
+            end
 
-  #           describe "Twice" do
-  #             it "should destroy the vote" do
-  #               find("#debate-card-#{debate.id}").find(".vote.upvote.unclicked").find('a').click
-  #               find("#debate-card-#{debate.id}").find(".vote.upvote.clicked").find('a').click
-  #               expect(find("#debate-card-#{debate.id}").find(".debate-score")).to have_content(0)
-  #             end
-  #           end
-  #         end
+            describe "Twice" do
+              it "should destroy the vote" do
+                find("#rally-card-#{rally.id}").find(".vote.upvote.unclicked").find('a').click
+                find("#rally-card-#{rally.id}").find(".vote.upvote.clicked").find('a').click
+                expect(find("#rally-card-#{rally.id}").find(".rally-score")).to have_content(0)
+              end
+            end
+          end
 
-  #         describe "Clicking the downvote link" do
-  #           it "should decrement the debate score" do
-  #             find("#debate-card-#{debate.id}").find(".vote.downvote.unclicked").find('a').click
-  #             expect(find("#debate-card-#{debate.id}").find(".debate-score")).to have_content(-1)
-  #           end
-  #         end
-  #       end
+          describe "Clicking the downvote link" do
+            it "should decrement the rally score" do
+              find("#rally-card-#{rally.id}").find(".vote.downvote.unclicked").find('a').click
+              expect(find("#rally-card-#{rally.id}").find(".rally-score")).to have_content(-1)
+            end
+          end
+        end
 
-  #       describe "after voting" do
-  #         before do
-  #           user.vote!(debate,1)
-  #           visit root_path
-  #         end
-  #         it { should have_selector('div.debate-score', text: 1) }
+        describe "after voting" do
+          before do
+            user.vote!(rally,1)
+            visit root_path
+          end
+          it { should have_selector('div.rally-score', text: 1) }
 
-  #         it { should have_selector('.vote.upvote.clicked') }
-  #         it { should have_selector('.vote.downvote.unclicked') }
+          it { should have_selector('.vote.upvote.clicked') }
+          it { should have_selector('.vote.downvote.unclicked') }
 
-  #         describe "followed by downvote" do
-  #           before do 
-  #             user.downvote!(debate) 
-  #             visit root_path
-  #           end
-  #           it { should have_selector('.vote.upvote.unclicked') }
-  #           it { should have_selector('.vote.downvote.clicked') }
-  #           it { should have_selector('div.debate-score', text: -1) }
-  #         end
-  #       end
-  #     end
-  #   end
-  # end
+          describe "followed by downvote" do
+            before do 
+              user.downvote!(rally) 
+              visit root_path
+            end
+            it { should have_selector('.vote.upvote.unclicked') }
+            it { should have_selector('.vote.downvote.clicked') }
+            it { should have_selector('div.rally-score', text: -1) }
+          end
+        end
+      end
+    end
+  end
   
   describe "create a new rally" do
     before do 

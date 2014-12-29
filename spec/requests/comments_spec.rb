@@ -139,91 +139,91 @@ describe "Comments" do
     end
   end
   
-  # describe "voting" do
-  #   let!(:argument_post) { FactoryGirl.create(:original_post, content: "Test content", rally: rally, user: user) }
+  describe "voting" do
+    let!(:comment) { FactoryGirl.create(body: "Test content", rally: rally, user: user) }
 
-  #   describe "buttons" do
-  #     describe "as non signed-in user" do
-  #       describe "without votes" do
-  #         before do
-  #           visit rally_path(rally)
-  #         end
-  #         it { should have_selector('.argument-post-vote-button.upvote.unclicked') }
-  #         it { should have_selector('.argument-post-vote-button.downvote.unclicked') }
-  #       end
+    describe "buttons" do
+      describe "as non signed-in user" do
+        describe "without votes" do
+          before do
+            visit rally_path(rally)
+          end
+          it { should have_selector('.comment-vote-button.upvote.unclicked') }
+          it { should have_selector('.comment-vote-button.downvote.unclicked') }
+        end
 
-  #       describe "with votes" do
-  #         before do
-  #           sign_in user
-  #           user.upvote!(argument_post)
-  #           click_link 'Sign out' 
-  #           visit rally_path(rally)
-  #         end
-  #         it { should have_selector('.argument-post-vote-button.upvote.unclicked') }
-  #         it { should have_selector('.argument-post-vote-button.downvote.unclicked') }
-  #       end
-  #     end
+        describe "with votes" do
+          before do
+            sign_in user
+            user.upvote!(comment)
+            click_link 'Sign out' 
+            visit rally_path(rally)
+          end
+          it { should have_selector('.comment-vote-button.upvote.unclicked') }
+          it { should have_selector('.comment-vote-button.downvote.unclicked') }
+        end
+      end
 
 
-  #     describe "after signing in" do
-  #       before do
-  #         sign_in user
-  #         visit rally_path(rally)
-  #       end
+      describe "after signing in" do
+        before do
+          sign_in user
+          visit rally_path(rally)
+        end
 
-  #       describe "without votes" do
-  #         it { should have_selector('.argument-post-vote-button.upvote.unclicked') }
-  #         it { should have_selector('.argument-post-vote-button.downvote.unclicked') }
-  #         it "should have a 0 score" do
-  #           expect(find("#argument-post-card-#{argument_post.id}").find(".argument-post-score")).to have_content(0)
-  #         end
+        describe "without votes" do
+          it { should have_selector('.comment-vote-button.upvote.unclicked') }
+          it { should have_selector('.comment-vote-button.downvote.unclicked') }
+          it "should have a 0 score" do
+            expect(find("#comment-card-#{comment.id}").find(".comment-score")).to have_content(0)
+          end
 
-  #         describe "Clicking the upvote link" do
-  #           it "should increment the rally score" do
-  #             find("#argument-post-card-#{argument_post.id}").find(".argument-post-vote-button.upvote.unclicked").find('a').click
-  #             expect(find("#argument-post-card-#{argument_post.id}").find(".argument-post-score")).to have_content(1)
-  #           end
+          describe "Clicking the upvote link" do
+            it "should increment the rally score" do
+              find("#comment-card-#{comment.id}").find(".comment-vote-button.upvote.unclicked").find('a').click
+              expect(find("#comment-card-#{comment.id}").find(".comment-score")).to have_content(1)
+            end
 
-  #           describe "Twice" do
-  #             it "should destroy the vote" do
-  #               find("#argument-post-card-#{argument_post.id}").find(".argument-post-vote-button.upvote.unclicked").find('a').click
-  #               find("#argument-post-card-#{argument_post.id}").find(".argument-post-vote-button.upvote.clicked").find('a').click
-  #               expect(find("#argument-post-card-#{argument_post.id}").find(".argument-post-score")).to have_content(0)
-  #             end
-  #           end
-  #         end
+            describe "Twice" do
+              it "should destroy the vote" do
+                find("#comment-card-#{comment.id}").find(".comment-vote-button.upvote.unclicked").find('a').click
+                find("#comment-card-#{comment.id}").find(".comment-vote-button.upvote.clicked").find('a').click
+                expect(find("#comment-card-#{comment.id}").find(".comment-score")).to have_content(0)
+              end
+            end
+          end
 
-  #         describe "Clicking the downvote link" do
-  #           it "should decrement the rally score" do
-  #             find("#argument-post-card-#{argument_post.id}").find(".argument-post-vote-button.downvote.unclicked").find('a').click
-  #             expect(find("#argument-post-card-#{argument_post.id}").find(".argument-post-score")).to have_content(-1)
-  #           end
-  #         end
-  #       end
+          describe "Clicking the downvote link" do
+            it "should decrement the rally score" do
+              find("#comment-card-#{comment.id}").find(".comment-vote-button.downvote.unclicked").find('a').click
+              expect(find("#comment-card-#{comment.id}").find(".comment-score")).to have_content(-1)
+            end
+          end
+        end
 
-  #       describe "after voting" do
-  #         before do
-  #           user.vote!(argument_post,1)
-  #           visit rally_path(rally)
-  #         end
-  #         it { should have_selector('div.argument-post-score', text: 1) }
+        describe "after voting" do
+          before do
+            user.vote!(comment,1)
+            visit rally_path(rally)
+          end
+          it { should have_selector('div.comment-score', text: 1) }
 
-  #         it { should have_selector('.argument-post-vote-button.upvote.clicked') }
-  #         it { should have_selector('.argument-post-vote-button.downvote.unclicked') }
+          it { should have_selector('.comment-vote-button.upvote.clicked') }
+          it { should have_selector('.comment-vote-button.downvote.unclicked') }
 
-  #         describe "followed by downvote" do
-  #           before do 
-  #             user.downvote!(argument_post) 
-  #             visit rally_path(rally)
-  #           end
-  #           it { should have_selector('.argument-post-vote-button.upvote.unclicked') }
-  #           it { should have_selector('.argument-post-vote-button.downvote.clicked') }
-  #           it { should have_selector('div.argument-post-score', text: -1) }
-  #         end
-  #       end
-  #     end
-  #   end
-  # end
+          describe "followed by downvote" do
+            before do 
+              user.downvote!(comment) 
+              visit rally_path(rally)
+            end
+            it { should have_selector('.comment-vote-button.upvote.unclicked') }
+            it { should have_selector('.comment-vote-button.downvote.clicked') }
+            it { should have_selector('div.comment-score', text: -1) }
+          end
+        end
+      end
+    end
+  end
 
   # describe "display order" do
   #   let!(:unpopular_positive_argument) { FactoryGirl.create(:original_post, content: "unpopular positive post", rally: rally, user: user) }
