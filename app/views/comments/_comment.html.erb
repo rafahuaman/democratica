@@ -3,7 +3,7 @@
         <div class="row comment-voting-grid" id=<%= "comment-card-#{comment.id}" %> >
           <% @votable = comment %>
           <div class="small-1 columns spacer-column" id=<%= "score-grid-comment-#{comment.id}" %> >
-            <%#= render 'votes/comment_voting_grid' %>
+            <%= render 'votes/comment_voting_grid' %>
           </div>
           <div class= "small-11 columns comment-content">
             <div class = "row">

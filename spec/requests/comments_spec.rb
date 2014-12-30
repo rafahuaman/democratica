@@ -140,7 +140,7 @@ describe "Comments" do
   end
   
   describe "voting" do
-    let!(:comment) { FactoryGirl.create(body: "Test content", rally: rally, user: user) }
+    let!(:comment) { FactoryGirl.create(:comment, body: "Test content", rally: rally, user: user) }
 
     describe "buttons" do
       describe "as non signed-in user" do

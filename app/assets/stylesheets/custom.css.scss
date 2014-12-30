@@ -91,3 +91,44 @@ ul.comment-links {
   paddin-right: 0.1rem;   
   width: 0.9rem;
 }
+
+.vote.unclicked {
+  a {
+    &:hover {
+      color: #00CED1;
+    }
+  }
+}
+
+.vote.clicked {
+  a {
+    color: #00CED1;
+  }
+}
+
+.comment-vote-button.unclicked {
+  a {
+    &:hover {
+      color: #00CED1;
+    }
+  }
+}
+
+.comment-vote-button.clicked {
+  a {
+    color: #00CED1;
+  }
+}
+
+.body {
+  padding: 30px; 
+}
+
+ul.argument-post-links {
+  .tiny {
+    padding-top: 0.2rem;
+    padding-right: .25rem;
+    padding-bottom: 0.2rem;
+    padding-left: .25rem;
+  }
+}
