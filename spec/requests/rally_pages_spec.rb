@@ -62,7 +62,7 @@ describe "Rally pages" do
         describe "with votes" do
           before do
             sign_in user
-            user.upvote!(debate)
+            user.upvote!(rally)
             click_link 'Sign out' 
             visit root_path
           end
@@ -143,7 +143,7 @@ describe "Rally pages" do
     it { should have_new_rally_page_appearance  }
     
     describe "with invalid information" do
-      it "should not create a debate" do
+      it "should not create a rally" do
         expect { click_button submit }.not_to change(Rally, :count)
       end
        
@@ -167,7 +167,7 @@ describe "Rally pages" do
          expect { click_button submit }.to change(Rally, :count).by(1)
       end
       
-      describe "should redirect to rally show page after saving the debate" do
+      describe "should redirect to rally show page after saving the rally" do
         before { click_button submit } 
         it { should have_rally_show_data(valid_new_rally_form_data) }
       end
