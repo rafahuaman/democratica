@@ -13,4 +13,8 @@ class Rally < ActiveRecord::Base
   def score
     votes.reduce(0) { |sum, vote| sum + vote.value }
   end
+
+  def root_comments
+    Comment.where(rally_id: id, parent_id: nil)
+  end
 end

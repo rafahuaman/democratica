@@ -16,6 +16,8 @@ describe Rally do
   it { should respond_to(:comments) }
   it { should respond_to :votes }
   it { should respond_to :score }
+  it { should respond_to(:root_comments) }
+
   its(:vote_type) { should eq "Rally" }
   
   it { should be_valid }
@@ -48,5 +50,13 @@ describe Rally do
   describe "when twitter_template longer than 140 characters" do
     before { @rally.twitter_template = "a".*141 }
     it { should_not be_valid }
+  end
+
+  describe "root comments" do
+    let!(:root_comment) { FactoryGirl.create(:comment, rally: @rally)  }
+    let!(:reply_comment) { FactoryGirl.create(:child_comment, rally: @rally, parent_id: root_comment.id) }
+
+    its(:root_comments) { should have(1).items }  
+
   end
 end

@@ -131,7 +131,7 @@ describe "Comments" do
       end
 
       it { should have_rally_show_data(rally) }
-      it { should have_content("Valid reply") }
+      it { should have_content("Valid reply", count: 1) }
 
       it "should be nested " do
         expect(find("div.comment##{root_comment.id}")).to have_content('Valid reply')
@@ -181,6 +181,7 @@ describe "Comments" do
           describe "Clicking the upvote link" do
             it "should increment the rally score" do
               find("#comment-card-#{comment.id}").find(".comment-vote-button.upvote.unclicked").find('a').click
+              print URI.parse(current_url)
               expect(find("#comment-card-#{comment.id}").find(".comment-score")).to have_content(1)
             end
 

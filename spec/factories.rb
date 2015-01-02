@@ -41,5 +41,9 @@ FactoryGirl.define do
     body "Lorem ipsum"
     user
     rally
+
+    factory :child_comment do 
+      parent_id nil
+    end
   end
 end
