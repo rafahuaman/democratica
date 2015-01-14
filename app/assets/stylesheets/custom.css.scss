@@ -87,9 +87,19 @@ ul.comment-links {
 }
 
 .spacer-column {
-  padding-left: 0.1rem;
+  padding-left: 1rem;
   paddin-right: 0.1rem;   
-  width: 0.9rem;
+  
+}
+
+.comment-voting-buttons {
+  padding-right: 0rem;
+  padding-left: 2rem;
+  width: 3rem;   
+}
+
+.comment-score {
+  padding-left: 0rem;
 }
 
 .vote.unclicked {
