@@ -5,10 +5,20 @@ FactoryGirl.define do
     password "foobar"
     password_confirmation "foobar"
     state "NY"
+    district 1
 
     factory :admin do
       admin true
     end
+  end
+
+  factory :identity do
+    user
+    provider "Twitter"
+    uid 100
+    access_token "XXX"
+    access_secret "YYY"
+
   end
 
   factory :congress_member, class: CongressMember  do

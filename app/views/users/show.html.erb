@@ -1,7 +1,11 @@
 <% provide(:title, @user.name) %>
-<h1><%= @user.name %></h1>
-<p><b>State: </b> <%= @user.state %></p>
-<p><b>Congressional District: </b><%= @user.district %></p>
+<h2><%= @user.name %></h2>
+<p><%= @user.state %>, <%= @user.district.ordinalize %> district</p>
+
 <% if @user.identity %>
-  <p><b>Twitter UID: </b><%= @user.identity.uid %></p>
+  <p>Linked Twitter account: Yes</p>
+  <%= link_to("Twitter Profile", "https://twitter.com/intent/user?user_id=#{@user.identity.uid}", class: "button small") %>
+<% else %>
+  <p>Linked Twitter account: No</p>
+  <%= link_to("Link Twitter Account", "users/#{@user.id}/after_signup/add_twitter", class: "button small") %>
 <% end %>

@@ -12,6 +12,20 @@ describe "User Pages" do
     it { should have_content(user.name) }
     it { should have_title(user.name) }
     it { should have_content(user.state) }
+    it { should have_content("#{user.state}, #{user.district.ordinalize} district ") }
+
+    describe "without twitter linked" do
+      it {should have_content("Linked Twitter account: No")}
+      it { should have_link("Link Twitter Account", "/users/#{user.id}/after_signup/add_twitter") }
+    end
+
+    describe "with twitter linked" do
+      let!(:identity) {FactoryGirl.create(:identity, user: user)}
+      before { visit user_path(user) }
+
+      it {should have_content("Linked Twitter account: Yes")}
+      it { should have_link("Twitter Profile","https://twitter.com/intent/user?user_id=#{user.identity.uid}") }
+    end
   end
 
   describe "signup page" do
