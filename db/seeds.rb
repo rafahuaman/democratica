@@ -553,7 +553,20 @@ senators = [
   ["Elizabeth","Warren","D","MA","@senwarren"],
   ["Sheldon","Whitehouse","D","RI","@senwhitehouse"],
   ["Roger F.","Wicker","R","MS","@SenatorWicker"],
-  ["Ron","Wyden","D","OR","@RonWyden"]
+  ["Ron","Wyden","D","OR","@RonWyden"],
+  ["Shelley Moore","Capito","R","WV","@CapitoforWV"],
+  ["Bill","Cassidy","R","LA","@BillCassidy"],
+  ["Tom","Cotton","R","AR","@TomCottonAR"],
+  ["Steve","Daines","R","MT","@SteveDaines"],
+  ["Joni","Ernst","R","IA","@joniernst"],
+  ["Cory","Gardner","R","CO","@CoryGardner"],
+  ["James","Lankford","R","OK","@jameslankford"],
+  ["David","Perdue","R","GA","@Perduesenate"],
+  ["Gary","Peters","D","MI","@Peters4Michigan"],
+  ["Mike","Rounds","R","SD","@SenatorRounds"],
+  ["Ben","Sasse","R","NE","@SenSasse"],
+  ["Daniel","Sullivan","R","AK","@SenDanSullivan"],
+  ["Thom","Tillis","R","NC","@ThomTillis"]
 ]
 
 senators.each do |first_name, last_name, party, state, twitter_handle|
