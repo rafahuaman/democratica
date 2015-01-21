@@ -19,10 +19,10 @@ class CongressMember < ActiveRecord::Base
   end
 
   def representative?
-    type_by_house == Representative.name 
+    type_by_house == "Representative"
   end
   
   def senator?
-    type_by_house == Senator.name
+    type_by_house == "Senator"
   end
 end

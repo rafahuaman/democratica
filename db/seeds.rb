@@ -450,7 +450,7 @@ representatives = [
 ]
 
 representatives.each do |first_name, last_name, party, state, district, twitter_handle|
-  Representative.create( first_name: first_name, last_name: last_name, party: party, state: state, district: district, twitter_handle: twitter_handle)
+  CongressMember.create( first_name: first_name, last_name: last_name, party: party, state: state, district: district, twitter_handle: twitter_handle, type_by_house: "Representative")
 end
 
 senators = [
@@ -570,5 +570,5 @@ senators = [
 ]
 
 senators.each do |first_name, last_name, party, state, twitter_handle|
-  Senator.create( first_name: first_name, last_name: last_name, party: party, state: state, twitter_handle: twitter_handle)
+  CongressMember.create( first_name: first_name, last_name: last_name, party: party, state: state, twitter_handle: twitter_handle, type_by_house: "Senator")
 end
