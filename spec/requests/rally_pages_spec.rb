@@ -22,28 +22,26 @@ describe "Rally pages" do
        it { should have_selector('ul.pagination.pagination') }
 
        it "should list each rally" do
-        Rally.paginate(page: 1).each do |rally|
+        Rally.order('created_at desc').all.paginate(page: 1).each do |rally|
           expect(page).to have_selector('li h5', text: rally.title)
         end
       end
     end 
 
-    # describe "order" do
-    #   let!(:popular_rally) { FactoryGirl.create(:rally, title: "Rally testing ordering", user: user) }
-    #   let(:other_user) { FactoryGirl.create(:user)  }
-    #   before do
-    #     sign_in user
-    #     user.upvote!(popular_debate)
-    #     click_link 'Sign out'
-    #     sign_in other_user
-    #     other_user.upvote!(popular_debate)
-    #     visit root_path
-    #   end
-    #   it { should have_content(popular_debate.title) }
-    #   it "should be determined by score" do
-    #     expect(page.body.index(popular_debate.title)).to be < page.body.index(debate.title)
-    #   end
-    # end
+    describe "order" do
+      let(:other_user) { FactoryGirl.create(:user)  }
+      let!(:older_rally) { FactoryGirl.create(:rally, title: "Older Rally", user: other_user, created_at: 1.hour.ago) }
+      let!(:recent_rally) { FactoryGirl.create(:rally, title: "Recent Rally", user: other_user ) }
+      before do
+        sign_in user
+        visit root_path
+      end
+
+      it "should have recent items first" do
+        expect(recent_rally.title).to appear_before(older_rally.title)
+      end
+      
+    end
   end
 
   describe "votes" do
