@@ -22,10 +22,10 @@ gem 'closure_tree'
 group :development, :test do
   gem 'rspec-rails'
   gem 'guard-rspec', require: false
-  gem 'spork-rails'
-  gem 'guard-spork'
   gem 'childprocess'
   gem 'minitest'
+  gem 'guard-spring'
+  gem "spring-commands-rspec"
 end
 
 
