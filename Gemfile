@@ -20,10 +20,10 @@ gem 'closure_tree'
 
 
 group :development, :test do
-  gem 'rspec-rails', '~> 2.14.0.rc1'
-  gem 'guard-rspec', '2.5.0'
-  gem 'spork-rails', '4.0.0'
-  gem 'guard-spork', '1.5.0'
+  gem 'rspec-rails'
+  gem 'guard-rspec', require: false
+  gem 'spork-rails'
+  gem 'guard-spork'
   gem 'childprocess'
   gem 'minitest'
 end
@@ -44,7 +44,7 @@ end
 
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.3'
+gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views

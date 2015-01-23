@@ -17,7 +17,7 @@ guard 'spork', :cucumber_env => { 'RAILS_ENV' => 'test' },
 end
 
 
-guard 'rspec' , all_after_pass: fals, cli: '--drb' do
+guard 'rspec' , cmd: 'bundle exec rspec --drb' do
 
   watch('config/routes.rb')
   # Custom Rails Tutorial specs
