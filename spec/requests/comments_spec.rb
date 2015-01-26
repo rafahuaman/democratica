@@ -181,7 +181,6 @@ describe "Comments" do
           describe "Clicking the upvote link" do
             it "should increment the rally score" do
               find("#comment-card-#{comment.id}").find(".comment-vote-button.upvote.unclicked").find('a').click
-              print URI.parse(current_url)
               expect(find("#comment-card-#{comment.id}").find(".comment-score")).to have_content(1)
             end
 

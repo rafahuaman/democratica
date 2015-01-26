@@ -1,4 +1,6 @@
 require 'rubygems'
+require 'rspec/its'
+require 'rspec/collection_matchers'
 
 
   ENV["RAILS_ENV"] ||= 'test'

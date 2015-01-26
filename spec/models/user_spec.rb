@@ -108,7 +108,7 @@ describe User do
       let(:returned_value_for_invalid_authentication) {retrieved_user.authenticate("invalid")}
       
       it { should_not eq (returned_value_for_invalid_authentication) } 
-      specify { expect(returned_value_for_invalid_authentication).to be_false }
+      specify { expect(returned_value_for_invalid_authentication).to be_falsey }
     end
   end
   
