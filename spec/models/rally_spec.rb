@@ -17,6 +17,8 @@ describe Rally do
   it { should respond_to :votes }
   it { should respond_to :score }
   it { should respond_to(:root_comments) }
+  it { should respond_to(:age_in_hours) }
+  it { should respond_to(:rank_score) }
 
   its(:vote_type) { should eq "Rally" }
   
@@ -58,5 +60,30 @@ describe Rally do
 
     its(:root_comments) { should have(1).items }  
 
+  end
+
+  describe "age_in_hours" do
+    before do
+      @rally.save
+    end
+
+    its(:age_in_hours) { should be 0}
+    
+    describe "modifying it to 2 hours ago"  do
+      before do
+        @rally.update(created_at:  2.hour.ago)
+      end
+
+      its(:age_in_hours) { should be 2}
+    end
+  end
+
+  describe "rank_score" do
+    before do
+      @rally.save
+    end
+
+    let(:expected_rank_score) { (@rally.score - 1)/(@rally.age_in_hours + 2)**1.8 }
+    its(:rank_score) {should eq(expected_rank_score) }
   end
 end

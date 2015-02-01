@@ -40,7 +40,17 @@ describe "Rally pages" do
       it "should have recent items first" do
         expect(recent_rally.title).to appear_before(older_rally.title)
       end
-      
+
+      describe "Ranking" do
+        before do
+          user.vote(older_rally)
+          visit root_path
+        end
+
+        it "should have upvoted items first" do
+          expect(older_rally.title).to appear_before(recent_rally.title)
+        end
+      end
     end
   end
 
