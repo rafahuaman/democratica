@@ -1,4 +1,5 @@
 class Comment < ActiveRecord::Base
+  include Votable
   acts_as_tree order: 'created_at DESC'
   belongs_to :user
   belongs_to :rally

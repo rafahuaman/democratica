@@ -48,15 +48,23 @@ describe "Comments" do
           expect { click_button submit }.to change(Comment, :count).by(1)
         end
 
-        describe "should redirect to rally show page after submitting the Comment" do
+        describe "after creation" do
           before { click_button submit } 
-          it { should have_rally_show_data(rally) }
+
+          it "the comment should have one vote" do
+            expect(Comment.last.score).to eq 1
+          end
+
+          describe "redirect to rally show page after submitting the Comment" do
+            it { should have_rally_show_data(rally) }
+          end
+
+          describe "display the affirmative post" do
+            it { should have_content(valid_comment) }
+          end
         end
 
-        describe "should display the affirmative post" do
-          before { click_button submit } 
-          it { should have_content(valid_comment) }
-        end
+        
 
         describe "should show the comment's author" do
           let(:last_comment) { Comment.last }

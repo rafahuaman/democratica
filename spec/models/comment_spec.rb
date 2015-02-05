@@ -18,6 +18,9 @@ describe Comment do
   it { should respond_to :children }
   it { should respond_to :parent }
   it { should respond_to :votes }
+  it { should respond_to :score }
+  it { should respond_to :rank_score }
+  it { should respond_to :age_in_hours }
   its(:user) { should eq user }
   its(:rally) { should eq rally }
   its(:vote_type) { should eq "Comment" }

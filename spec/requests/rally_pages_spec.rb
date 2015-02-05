@@ -43,7 +43,7 @@ describe "Rally pages" do
 
       describe "Ranking" do
         before do
-          user.vote(older_rally)
+          user.upvote!(older_rally)
           visit root_path
         end
 
@@ -174,15 +174,21 @@ describe "Rally pages" do
       it "should create a rally" do
          expect { click_button submit }.to change(Rally, :count).by(1)
       end
-      
-      describe "should redirect to rally show page after saving the rally" do
-        before { click_button submit } 
-        it { should have_rally_show_data(valid_new_rally_form_data) }
-      end
-      
-      describe "should show success message after saving the rally" do
+
+      describe "after creation" do
         before { click_button submit }
-        it { should have_rally_created_successfully_message }
+
+        it "should have 1 vote from the user" do
+          expect(Rally.last.score).to eq 1
+        end
+
+        describe "redirect to rally show page after saving the rally" do
+          it { should have_rally_show_data(valid_new_rally_form_data) }
+        end
+        
+        describe "show success message after saving the rally" do
+          it { should have_rally_created_successfully_message }
+        end
       end
     end
   end
