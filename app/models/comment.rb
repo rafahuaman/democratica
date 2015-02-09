@@ -7,12 +7,8 @@ class Comment < ActiveRecord::Base
   validates :rally, presence: true
   validates :user, presence: true
   validates :body, presence: true, length: { maximum: 5000 }
-
+  
   def vote_type
     self.class.name
-  end
-
-  def score
-    self.votes.reduce(0) { |sum, vote| sum + vote.value }
   end
 end

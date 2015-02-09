@@ -3,7 +3,6 @@ require 'spec_helper'
 describe Comment do
 
   let(:user) { FactoryGirl.create(:user, name: "Paul")  }
-  #let(:chamber) { FactoryGirl.create(:chamber)  }
   let(:rally) { FactoryGirl.create(:rally)  }
   
   before do

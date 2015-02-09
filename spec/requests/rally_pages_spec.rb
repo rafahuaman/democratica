@@ -55,7 +55,7 @@ describe "Rally pages" do
   end
 
   describe "votes" do
-    let(:other_user) { FactoryGirl.create(:user, name: "other user")  }
+    let(:non_author_user) { FactoryGirl.create(:user, name: "other user")  }
     let(:downvoter) { FactoryGirl.create(:user, name: "downvoter")  }
     before { visit root_path }
 
@@ -82,28 +82,28 @@ describe "Rally pages" do
 
       describe "after signing in" do
         before do
-          sign_in user
+          sign_in non_author_user
           visit root_path
         end
 
         describe "without votes" do
           it { should have_selector('.vote.upvote.unclicked') }
           it { should have_selector('.vote.downvote.unclicked') }
-          it "should have a 0 score" do
-            expect(find("#rally-card-#{rally.id}").find(".rally-score")).to have_content(0)
+          it "should have a 1 score" do
+            expect(find("#rally-card-#{rally.id}").find(".rally-score")).to have_content(1)
           end
 
           describe "Clicking the upvote link" do
             it "should increment the rally score" do
               find("#rally-card-#{rally.id}").find(".vote.upvote.unclicked").find('a').click
-              expect(find("#rally-card-#{rally.id}").find(".rally-score")).to have_content(1)
+              expect(find("#rally-card-#{rally.id}").find(".rally-score")).to have_content(2)
             end
 
             describe "Twice" do
               it "should destroy the vote" do
                 find("#rally-card-#{rally.id}").find(".vote.upvote.unclicked").find('a').click
                 find("#rally-card-#{rally.id}").find(".vote.upvote.clicked").find('a').click
-                expect(find("#rally-card-#{rally.id}").find(".rally-score")).to have_content(0)
+                expect(find("#rally-card-#{rally.id}").find(".rally-score")).to have_content(1)
               end
             end
           end
@@ -111,29 +111,29 @@ describe "Rally pages" do
           describe "Clicking the downvote link" do
             it "should decrement the rally score" do
               find("#rally-card-#{rally.id}").find(".vote.downvote.unclicked").find('a').click
-              expect(find("#rally-card-#{rally.id}").find(".rally-score")).to have_content(-1)
+              expect(find("#rally-card-#{rally.id}").find(".rally-score")).to have_content(0)
             end
           end
         end
 
         describe "after voting" do
           before do
-            user.vote!(rally,1)
+            non_author_user.vote!(rally,1)
             visit root_path
           end
-          it { should have_selector('div.rally-score', text: 1) }
+          it { should have_selector('div.rally-score', text: 2) }
 
           it { should have_selector('.vote.upvote.clicked') }
           it { should have_selector('.vote.downvote.unclicked') }
 
           describe "followed by downvote" do
             before do 
-              user.downvote!(rally) 
+              non_author_user.downvote!(rally) 
               visit root_path
             end
             it { should have_selector('.vote.upvote.unclicked') }
             it { should have_selector('.vote.downvote.clicked') }
-            it { should have_selector('div.rally-score', text: -1) }
+            it { should have_selector('div.rally-score', text: 0) }
           end
         end
       end

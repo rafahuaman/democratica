@@ -149,6 +149,7 @@ describe "Comments" do
   
   describe "voting" do
     let!(:comment) { FactoryGirl.create(:comment, body: "Test content", rally: rally, user: user) }
+    let(:non_author_user) { FactoryGirl.create(:user, name: "non  author") }
 
     describe "buttons" do
       describe "as non signed-in user" do
@@ -162,8 +163,8 @@ describe "Comments" do
 
         describe "with votes" do
           before do
-            sign_in user
-            user.upvote!(comment)
+            sign_in non_author_user
+            non_author_user.upvote!(comment)
             click_link 'Sign out' 
             visit rally_path(rally)
           end
@@ -175,7 +176,7 @@ describe "Comments" do
 
       describe "after signing in" do
         before do
-          sign_in user
+          sign_in non_author_user
           visit rally_path(rally)
         end
 
@@ -183,20 +184,20 @@ describe "Comments" do
           it { should have_selector('.comment-vote-button.upvote.unclicked') }
           it { should have_selector('.comment-vote-button.downvote.unclicked') }
           it "should have a 0 score" do
-            expect(find("#comment-card-#{comment.id}").find(".comment-score")).to have_content(0)
+            expect(find("#comment-card-#{comment.id}").find(".comment-score")).to have_content(1)
           end
 
           describe "Clicking the upvote link" do
             it "should increment the rally score" do
               find("#comment-card-#{comment.id}").find(".comment-vote-button.upvote.unclicked").find('a').click
-              expect(find("#comment-card-#{comment.id}").find(".comment-score")).to have_content(1)
+              expect(find("#comment-card-#{comment.id}").find(".comment-score")).to have_content(2)
             end
 
             describe "Twice" do
               it "should destroy the vote" do
                 find("#comment-card-#{comment.id}").find(".comment-vote-button.upvote.unclicked").find('a').click
                 find("#comment-card-#{comment.id}").find(".comment-vote-button.upvote.clicked").find('a').click
-                expect(find("#comment-card-#{comment.id}").find(".comment-score")).to have_content(0)
+                expect(find("#comment-card-#{comment.id}").find(".comment-score")).to have_content(1)
               end
             end
           end
@@ -204,29 +205,29 @@ describe "Comments" do
           describe "Clicking the downvote link" do
             it "should decrement the rally score" do
               find("#comment-card-#{comment.id}").find(".comment-vote-button.downvote.unclicked").find('a').click
-              expect(find("#comment-card-#{comment.id}").find(".comment-score")).to have_content(-1)
+              expect(find("#comment-card-#{comment.id}").find(".comment-score")).to have_content(0)
             end
           end
         end
 
         describe "after voting" do
           before do
-            user.vote!(comment,1)
+            non_author_user.vote!(comment,1)
             visit rally_path(rally)
           end
-          it { should have_selector('div.comment-score', text: 1) }
+          it { should have_selector('div.comment-score', text: 2) }
 
           it { should have_selector('.comment-vote-button.upvote.clicked') }
           it { should have_selector('.comment-vote-button.downvote.unclicked') }
 
           describe "followed by downvote" do
             before do 
-              user.downvote!(comment) 
+              non_author_user.downvote!(comment) 
               visit rally_path(rally)
             end
             it { should have_selector('.comment-vote-button.upvote.unclicked') }
             it { should have_selector('.comment-vote-button.downvote.clicked') }
-            it { should have_selector('div.comment-score', text: -1) }
+            it { should have_selector('div.comment-score', text: 0) }
           end
         end
       end

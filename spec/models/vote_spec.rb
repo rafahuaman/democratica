@@ -3,11 +3,12 @@ require 'spec_helper'
 describe Vote do
   let(:user) { FactoryGirl.create(:user) }
   let(:rally) { FactoryGirl.create(:rally, user: user) }
+  let(:voting_user) { FactoryGirl.create(:user) }
   let(:comment) { FactoryGirl.create(:comment, user: user, rally: rally) }
   
   before do
-    @RallyVote = user.votes.build(votable_type: "Rally", votable_id: rally.id, value: 1)
-    @CommentVote = user.votes.build(votable_type: "Comment", votable_id: comment.id, value: 1)
+    @RallyVote = voting_user.votes.build(votable_type: "Rally", votable_id: rally.id, value: 1)
+    @CommentVote = voting_user.votes.build(votable_type: "Comment", votable_id: comment.id, value: 1)
   end
 
   subject { @RallyVote }
@@ -16,7 +17,7 @@ describe Vote do
   it { should respond_to(:votable_id) }
   it { should respond_to(:user) }
   it { should respond_to(:value) }
-  its(:user) { should eq user }
+  its(:user) { should eq voting_user }
   its(:votable) { should eq rally }
 
   it { should be_valid }
