@@ -19,6 +19,7 @@ describe Rally do
   it { should respond_to(:root_comments) }
   it { should respond_to(:age_in_hours) }
   it { should respond_to(:rank_score) }
+  it { should respond_to(:rank_score_raw) }
 
   its(:vote_type) { should eq "Rally" }
   
@@ -78,12 +79,18 @@ describe Rally do
     end
   end
 
-  describe "rank_score" do
+  describe "after saving" do
     before do
       @rally.save
     end
 
-    let(:expected_rank_score) { (@rally.score - 1)/(@rally.age_in_hours + 2)**1.8 }
-    its(:rank_score) {should eq(expected_rank_score) }
+    describe "vote score" do
+      its(:score) {should eq 1 }
+    end
+
+    describe "rank_score" do
+      let(:expected_rank_score) { (@rally.score - 1)/(@rally.age_in_hours + 2)**1.8 }
+      its(:rank_score_value) {should eq(expected_rank_score) }
+    end
   end
 end

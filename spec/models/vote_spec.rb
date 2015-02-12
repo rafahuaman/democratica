@@ -65,4 +65,12 @@ describe Vote do
     end 
     it { should_not be_valid }
   end
+
+  describe "after saving" do 
+
+    it "should kick off rank score recalculation" do
+      expect{ @RallyVote.save }.to change{ rally.rank_score_value }.from(0.0).to(1)
+    end
+    
+  end
 end

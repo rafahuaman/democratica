@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   end
   
   resources :votes, only: [:create, :update, :destroy]
+  resources :rank_scores, only: [:create, :update, :destroy]
   
   resources :sessions, only: [:new, :create, :destroy]
 

@@ -5,4 +5,9 @@ class Vote < ActiveRecord::Base
   validates :votable_id, uniqueness: { scope: [:user, :votable_type], message: "You can only vote once per debate or comment" }
   validates :value, inclusion: { in: [-1, 1] }
   validates :votable_type, inclusion: { in: %w(Rally Comment),  message: "%{value} is not a valid Type" }
+  after_save :recalculate_votable_rank_score
+
+  def recalculate_votable_rank_score
+    votable.recalculate_rank_score
+  end
 end
