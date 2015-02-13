@@ -69,7 +69,11 @@ describe Vote do
   describe "after saving" do 
 
     it "should kick off rank score recalculation" do
-      expect{ @RallyVote.save }.to change{ rally.rank_score_value }.from(0.0).to(1)
+      expect{ @RallyVote.save }.to change{ rally.reload.rank_score_value }.from(0.0)
+    end
+
+    it "should kick off rank score recalculation" do
+      expect{ @RallyVote.save }.to change{ rally.reload.score }.from(1).to(2)
     end
     
   end

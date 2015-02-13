@@ -6,7 +6,7 @@ class RalliesController < ApplicationController
   # GET /rallies
   # GET /rallies.json
   def index
-    @rallies = Rally.order('created_at desc').all.paginate(page: params[:page])
+    @rallies = Rally.includes(:rank_score).order('rank_scores.value desc').all.paginate(page: params[:page])
   end
 
   # GET /rallies/1

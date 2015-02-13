@@ -19,7 +19,7 @@ describe Rally do
   it { should respond_to(:root_comments) }
   it { should respond_to(:age_in_hours) }
   it { should respond_to(:rank_score) }
-  it { should respond_to(:rank_score_raw) }
+  it { should respond_to(:rank_score_value) }
 
   its(:vote_type) { should eq "Rally" }
   

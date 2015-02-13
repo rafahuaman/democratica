@@ -34,11 +34,19 @@ describe "Rally pages" do
       let!(:recent_rally) { FactoryGirl.create(:rally, title: "Recent Rally", user: other_user ) }
       before do
         sign_in user
-        visit root_path
       end
 
-      it "should have recent items first" do
-        expect(recent_rally.title).to appear_before(older_rally.title)
+      describe "by recency" do
+        #voting because otherwise the rank is 0.0
+        before do
+          user.upvote!(older_rally)
+          user.upvote!(recent_rally)
+          visit root_path
+        end
+
+         it "should have recent items first" do
+          expect(recent_rally.title).to appear_before(older_rally.title)
+        end
       end
 
       describe "Ranking" do
