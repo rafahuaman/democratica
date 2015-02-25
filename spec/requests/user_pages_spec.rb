@@ -119,7 +119,7 @@ describe "User Pages" do
 
                 it "should respond with javascript" do
                   xhr :get, find_congressional_district_path, { address: address , city: city , state: state }
-                  response.should render_template('find_congressional_district/index', :format => 'js')
+                  expect(response).to render_template('find_congressional_district/index', :format => 'js')
                 end
               end
             end
