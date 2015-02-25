@@ -22,7 +22,7 @@ describe "Rally pages" do
        it { should have_selector('ul.pagination.pagination') }
 
        it "should list each rally" do
-        Rally.order('created_at desc').all.paginate(page: 1).each do |rally|
+        Rally.includes(:rank_score).order('rank_scores.value desc').all.paginate(page: 1).each do |rally|
           expect(page).to have_selector('li h5', text: rally.title)
         end
       end
