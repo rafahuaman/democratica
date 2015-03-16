@@ -12,6 +12,14 @@ class RalliesController < ApplicationController
   # GET /rallies/1
   # GET /rallies/1.json
   def show
+    if current_user
+      user_congress_members = CongressMemberFinder.get_all(current_user)
+      @senator_handle = user_congress_members[:senator] ? user_congress_members[:senator].twitter_handle : "@YourSenator"
+      @representative_handle = user_congress_members[:representative] ? user_congress_members[:representative].twitter_handle : "@YourRepresentative"
+    else
+      @senator_handle = "@YourSenator"
+      @representative_handle = "@YourRepresentative"
+    end
   end
 
   # GET /rallies/new

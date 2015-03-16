@@ -2,7 +2,9 @@ require 'spec_helper'
 
 describe "Rally pages" do
 
-  let(:user) { FactoryGirl.create(:user)  }
+  let!(:user) { FactoryGirl.create(:user)  }
+  #let!(:representative) { FactoryGirl.create(:representative, state: user.state, district: user.district)  }
+  #let!(:senator) { FactoryGirl.create(:senator, state: user.state)  }
   let!(:rally) { FactoryGirl.create(:rally, user: user) }
 
   subject { page }
@@ -205,6 +207,7 @@ describe "Rally pages" do
     before { visit rally_path(rally) }
     
     it { should have_rally_show_data(rally) }
+    it { should have_a_tweet_preview_with_placeholders(rally) }
     
     describe "when signed in as rally owner" do
       before do
@@ -212,6 +215,26 @@ describe "Rally pages" do
         visit rally_path(rally)
       end
       it { should have_rally_links_for_owner(rally) }
+    end
+
+    describe "when signed in user does not have congress members"  do
+      before do
+        sign_in user
+        visit rally_path(rally)
+      end
+
+      it { should have_a_tweet_preview_with_placeholders(rally) }
+    end
+
+    describe "when signed in user has congress members"  do
+      let!(:sen) { FactoryGirl.create(:senator, state: user.state) }
+      let!(:rep) { FactoryGirl.create(:representative, state: user.state, district: user.district) }
+      before do
+        sign_in user
+        visit rally_path(rally)
+      end
+
+      #it { should have_a_tweet_preview_with_placeholders(rally) }
     end
     
     describe "when not signed in as rally owner" do

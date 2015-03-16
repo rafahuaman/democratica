@@ -5,7 +5,12 @@
       <p><%= @rally.content %></p>
       <p>
         <strong>Twitter template:</strong>
-        <%= @rally.twitter_template %>
+        <% if signed_in? %>
+          <%= "#{@rally.twitter_template} #{@senator_handle} #{@representative_handle}" %>
+        <% else %>
+          <%= "#{@rally.twitter_template} @YourSenator @YourRepresentative" %>
+        <% end %>
+        
       </p>    
     </div>
   </div>

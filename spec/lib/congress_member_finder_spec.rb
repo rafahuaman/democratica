@@ -1,9 +1,12 @@
 require 'spec_helper'
 
 describe "CongressMemberFinder" do
-  let!(:rep) { FactoryGirl.create(:representative, state: "MM", district: 1) }
-  let!(:senator) { FactoryGirl.create(:senator, state: "MM") }
-  let!(:user) { FactoryGirl.create(:user, state: "MM", district: 1) }
+  let(:state) { "MM" }
+  let(:district) { 1 }
+  let!(:rep) { FactoryGirl.create(:representative, state: state, district: district) }
+  let!(:senator) { FactoryGirl.create(:senator, state: state) }
+  let!(:user) { FactoryGirl.create(:user, state: state, district: district) }
+
   describe "#get_all" do
     it "retrieves all of the user's congress members" do
       expect(CongressMemberFinder.get_all(user)[:senator]).to eq(senator)
