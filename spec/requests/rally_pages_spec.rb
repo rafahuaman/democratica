@@ -208,6 +208,7 @@ describe "Rally pages" do
     
     it { should have_rally_show_data(rally) }
     it { should have_a_tweet_preview_with_placeholders(rally) }
+    it { should have_link("comment", rally_path(rally))}
     
     describe "when signed in as rally owner" do
       before do
@@ -234,11 +235,29 @@ describe "Rally pages" do
         visit rally_path(rally)
       end
 
-      #it { should have_a_tweet_preview_with_placeholders(rally) }
+      it { should have_a_tweet_preview(rally, user) }
     end
     
     describe "when not signed in as rally owner" do
       it { should_not have_rally_links_for_owner(rally) }
+    end
+
+    describe "with comments" do
+      let!(:comment) { FactoryGirl.create(:comment, rally: rally)}
+      before do
+        visit rally_path(rally)
+      end
+
+      it { should have_link("1 comment", rally_path(rally))}
+
+      describe "multiple comments" do 
+        let!(:second_comment) { FactoryGirl.create(:comment, rally: rally)}
+        before do
+          visit rally_path(rally)
+        end
+
+        it { should have_link("2 comments", rally_path(rally))}
+      end      
     end
   end
 
