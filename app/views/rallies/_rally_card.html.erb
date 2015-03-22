@@ -14,7 +14,13 @@
           <ul class="inline-list">
             <li></li>
             <% comment_link_text = "comment" %>
-            <li><%= link_to "#{pluralize(@rally.comments.count,comment_link_text)} #{@rally.comments.count}", rally_path(@rally) %></li>
+            <% comment_count = @rally.comments.count %>
+            <% if comment_count > 0 %>
+              <li><%= link_to "#{pluralize(@rally.comments.count,comment_link_text)}", rally_path(@rally) %></li>
+            <% else %>
+              <li><%= link_to "comment", rally_path(@rally) %></li>
+            <% end %>
+            
             <% if current_user == @rally.user %>
               <li><%= link_to "edit", edit_rally_path(@rally) %></li>
               <li><%= link_to "delete", rally_path(@rally), method: :delete, data: { confirm: "You sure?" } %></li>
