@@ -4,6 +4,7 @@ describe "Comments" do
   subject { page }
   let(:user) { FactoryGirl.create(:user)  }
   let!(:rally) { FactoryGirl.create(:rally) }
+  let(:submit)  { "save" }
 
   describe "Create a new Comment" do
     before do
@@ -11,9 +12,7 @@ describe "Comments" do
       visit rally_path(rally)
     end
     
-
     let(:comment)  { "Comment" }
-    let(:submit)  { "Save" }
 
     it { should have_link(comment)  }
     
@@ -79,7 +78,6 @@ describe "Comments" do
 
   describe "Edit an comment" do
     let(:edit) { "edit"}
-    let(:submit)  { "Save" }
     let(:original_body)  { "Orignal commeent" }
     let(:edited_body)  { "Edited Comment" }
     let!(:comment) { FactoryGirl.create(:comment, body: original_body, rally: rally, user: user) }
@@ -117,7 +115,7 @@ describe "Comments" do
 
   describe "Reply to a Comment" do
     let(:reply) { "reply"}
-    let(:submit)  { "Save" }
+    
     let!(:root_comment) { FactoryGirl.create(:comment, rally: rally, user: user) }
     
     before do
