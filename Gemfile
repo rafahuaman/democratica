@@ -1,5 +1,7 @@
 
-source 'http://mirror1.prod.rhcloud.com/mirror/ruby/'
+#source 'http://mirror1.prod.rhcloud.com/mirror/ruby/'
+#Gemfile .lock
+#remote: http://mirror1.prod.rhcloud.com/mirror/ruby/
 source 'https://rubygems.org'
 
 
