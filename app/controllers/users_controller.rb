@@ -10,6 +10,9 @@ class UsersController < ApplicationController
   end
 
   def show
+    user_congress_members = CongressMemberFinder.get_all(@user)
+    @representative_name = user_congress_members[:representative].full_name
+    @senator_name = user_congress_members[:senator].full_name
   end
 
   def edit
@@ -33,7 +36,6 @@ class UsersController < ApplicationController
   end
   
   def update
-    @user = User.find(params[:id])
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
@@ -50,7 +52,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    User.find(params[:id]).destroy
+    @user.destroy
     flash[:success] = "User deleted."
     redirect_to users_url
   end

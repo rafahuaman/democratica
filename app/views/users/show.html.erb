@@ -2,6 +2,10 @@
 <h2><%= @user.name %></h2>
 <p><%= @user.state %>, <%= @user.district.ordinalize %> district</p>
 
+<p><b>My representative:</b> <%= @representative_name %></p>
+
+<p><b>My senator:</b> <%= @senator_name %></p>
+
 <% if @user.identity %>
   <p>Linked Twitter account: Yes</p>
   <%= link_to("Twitter Profile", "https://twitter.com/intent/user?user_id=#{@user.identity.uid}", class: "button small") %>

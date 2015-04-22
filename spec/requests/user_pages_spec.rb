@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe "User Pages" do
   let(:user) { FactoryGirl.create(:user) }
+  let!(:representative) { FactoryGirl.create(:representative, state: user.state, district: user.district)}
+  let!(:senator) { FactoryGirl.create(:senator, state: user.state)}
   
   subject { page }
 
@@ -25,6 +27,14 @@ describe "User Pages" do
 
       it {should have_content("Linked Twitter account: Yes")}
       it { should have_link("Twitter Profile","https://twitter.com/intent/user?user_id=#{user.identity.uid}") }
+    end
+
+    describe "representative information" do
+      it { should have_content(representative.full_name) }
+    end
+
+    describe "senator information" do
+      it { should have_content(senator.full_name) }
     end
   end
 
