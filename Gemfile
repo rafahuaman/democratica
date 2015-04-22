@@ -21,6 +21,7 @@ gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'twitter'
 gem 'closure_tree'
+gem 'sweet-alert-confirm'
 
 
 group :development, :test do
