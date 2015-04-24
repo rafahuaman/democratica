@@ -1,31 +1,22 @@
-<div class ="row">
   <% if signed_in? %>
     <% if current_user.has_voted_on?(@votable) %>
       <% if current_user.find_vote(@votable).value == 1 %>
-        <div class= "comment-voting-buttons small-1 columns">
           <%= render 'votes/upvote', clicked: true %>
+          <div class="comment-score"><%= @votable.score %></div>  
           <%= render 'votes/downvote', clicked: false %>          
-        </div>
-        <div class="comment-score small-1 columns"><%= @votable.score %></div>  
+        
       <% else %>
-        <div class= "comment-voting-buttons small-1 columns">
           <%= render 'votes/upvote', clicked: false %>
+          <div class="comment-score"><%= @votable.score %></div>  
           <%= render 'votes/downvote', clicked: true %>
-        </div>
-        <div class="comment-score small-1 columns"><%= @votable.score %></div>
       <% end %>
     <% else %>
-      <div class= "comment-voting-buttons small-1 columns">
         <%= render 'votes/upvote', clicked: false %>
+        <div class="comment-score"><%= @votable.score %></div>  
         <%= render 'votes/downvote', clicked: false %>
-      </div>
-      <div class="comment-score small-1 columns"><%= @votable.score %></div>
     <% end %>
   <% else %>
-    <div class= "comment-voting-buttons small-1 columns">
       <div class="comment-vote-button upvote unclicked">  <%= link_to '<i class="fa fa-arrow-up small"></i>'.html_safe, signin_path %></div>
+      <div class="comment-score"><%= @votable.score %></div>  
       <div class="comment-vote-button downvote unclicked">  <%= link_to '<i class="fa fa-arrow-down small"></i>'.html_safe, signin_path %></div>
-    </div>
-    <div class="comment-score small-1 columns"><%= @votable.score %></div>
   <% end %>
-</div>

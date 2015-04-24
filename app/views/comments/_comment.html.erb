@@ -1,16 +1,14 @@
-      <div class="panel comment" id=<%= "#{comment.id}" %> >
-
-        <div class="row comment-voting-grid" id=<%= "comment-card-#{comment.id}" %> >
-          <% @votable = comment %>
-          <div class="small-1 columns spacer-column" id=<%= "score-grid-comment-#{comment.id}" %> >
+      <div class="row panel comment" id=<%= "#{comment.id}" %> >
+        <div class="small-12 columns">
+         <ul class="comment-grid-spacing small-block-grid-2 large-block-grid-2">
+          <li class="comment-score-grid" id=<%= "score-grid-comment-#{comment.id}" %>>
+            <% @votable = comment %>
+            
             <%= render 'votes/comment_voting_grid' %>
-          </div>
-          <div class= "small-11 columns comment-content">
-            <div class = "row">
-              <div class="secondary label author small-3 columns" >
-                <%= comment.user.name %>
-              </div>
-              <div class= "small-9 columns"></div>
+          </li>
+          <li class="comment-description">
+            <div class="secondary label author small-3 columns" >
+              <%= link_to "#{comment.user.name}", user_path(comment.user_id) %>
             </div>
             <div class = "row">
               <div class= "small-12 columns ">
@@ -25,8 +23,11 @@
                 <% end %>
               </div>        
             </div>
-          </div>
+          </li>
+         </ul>
         </div>
+
+       
       </div>
 
 
