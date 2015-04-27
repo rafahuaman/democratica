@@ -16,7 +16,7 @@
   <body>
     <div class="main">
       <%= render 'layouts/header' %>
-      <div class="row fullWidth body">
+      <div class="row fullWidth mainPanel">
         <% flash.each do |key, message| %>
           <div class = "row">
             <div data-alert class="alert-box radius <%= key.to_s == 'notice' ? 'success' : 'alert' %>"> 

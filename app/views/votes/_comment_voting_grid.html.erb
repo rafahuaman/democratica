@@ -4,7 +4,6 @@
           <%= render 'votes/upvote', clicked: true %>
           <div class="comment-score"><%= @votable.score %></div>  
           <%= render 'votes/downvote', clicked: false %>          
-        
       <% else %>
           <%= render 'votes/upvote', clicked: false %>
           <div class="comment-score"><%= @votable.score %></div>  
