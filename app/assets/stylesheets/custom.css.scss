@@ -83,7 +83,12 @@ ul.comment-links {
 
 .row.panel.comment {
   padding-left: 5px;
-  padding-right: 5px;  
+  padding-right: 5px;
+  
+  .columns {
+    padding-left: 5px;
+    padding-right: 5px;
+  }  
 }
 
 .comment-score-grid {
@@ -96,18 +101,9 @@ ul.comment-links {
   }
 
   > li:last-child {
-    width: 73%;
+    width: 90%;
   } 
 }
-
-/*
-.panel.comment {
-  padding-top: .75rem;
-  padding-bottom: 0.75rem;
-  padding-left: 0.1rem;
-  paddin-right: 0.1rem;  
-}
-*/
 
 .spacer-column {
   padding-left: 1rem;
