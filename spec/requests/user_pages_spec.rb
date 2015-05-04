@@ -36,6 +36,19 @@ describe "User Pages" do
     describe "senator information" do
       it { should have_content(senator.full_name) }
     end
+
+    describe "when logged out" do 
+      it { should_not have_link("edit", edit_user_path(user)) }
+    end
+
+    describe "when logged in" do
+      before do
+        sign_in user
+        visit user_path(user)
+      end
+      
+      it { should have_link("Edit profile", edit_user_path(user)) }
+    end
   end
 
   describe "signup page" do

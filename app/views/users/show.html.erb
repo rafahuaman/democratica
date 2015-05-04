@@ -13,3 +13,7 @@
   <p>Linked Twitter account: No</p>
   <%= link_to("Link Twitter Account", "users/#{@user.id}/after_signup/add_twitter", class: "button small") %>
 <% end %>
+
+<% if current_user == @user %>
+  <%= link_to("Edit profile", edit_user_url(@user)) %>
+<% end %>
