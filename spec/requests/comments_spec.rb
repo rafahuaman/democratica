@@ -69,7 +69,7 @@ describe "Comments" do
           let(:last_comment) { Comment.last }
           before { click_button submit }
           it "should show the comment's author " do
-            expect(find("#comment-card-#{last_comment.id}").find(".author")).to have_content(last_comment.user.name)
+            expect(find("#comment-block-#{last_comment.id}").find(".author")).to have_content(last_comment.user.name)
           end
         end
       end
@@ -140,7 +140,7 @@ describe "Comments" do
       it { should have_content("Valid reply", count: 1) }
 
       it "should be nested " do
-        expect(find("div.comment##{root_comment.id}")).to have_content('Valid reply')
+        expect(find("div#comment-block-#{root_comment.id}")).to have_content('Valid reply')
       end
     end
   end
@@ -182,28 +182,28 @@ describe "Comments" do
           it { should have_selector('.comment-vote-button.upvote.unclicked') }
           it { should have_selector('.comment-vote-button.downvote.unclicked') }
           it "should have a 0 score" do
-            expect(find("#comment-card-#{comment.id}").find(".comment-score")).to have_content(1)
+            expect(find("#comment-block-#{comment.id}").find("#score-grid-comment-#{comment.id}")).to have_content(1)
           end
 
           describe "Clicking the upvote link" do
             it "should increment the rally score" do
-              find("#comment-card-#{comment.id}").find(".comment-vote-button.upvote.unclicked").find('a').click
-              expect(find("#comment-card-#{comment.id}").find(".comment-score")).to have_content(2)
+              find("#comment-block-#{comment.id}").find(".comment-vote-button.upvote.unclicked").find('a').click
+              expect(find("#comment-block-#{comment.id}").find("#score-grid-comment-#{comment.id}")).to have_content(2)
             end
 
             describe "Twice" do
               it "should destroy the vote" do
-                find("#comment-card-#{comment.id}").find(".comment-vote-button.upvote.unclicked").find('a').click
-                find("#comment-card-#{comment.id}").find(".comment-vote-button.upvote.clicked").find('a').click
-                expect(find("#comment-card-#{comment.id}").find(".comment-score")).to have_content(1)
+                find("#comment-block-#{comment.id}").find(".comment-vote-button.upvote.unclicked").find('a').click
+                find("#comment-block-#{comment.id}").find(".comment-vote-button.upvote.clicked").find('a').click
+                expect(find("#comment-block-#{comment.id}").find("#score-grid-comment-#{comment.id}")).to have_content(1)
               end
             end
           end
 
           describe "Clicking the downvote link" do
             it "should decrement the rally score" do
-              find("#comment-card-#{comment.id}").find(".comment-vote-button.downvote.unclicked").find('a').click
-              expect(find("#comment-card-#{comment.id}").find(".comment-score")).to have_content(0)
+              find("#comment-block-#{comment.id}").find(".comment-vote-button.downvote.unclicked").find('a').click
+              expect(find("#comment-block-#{comment.id}").find("#score-grid-comment-#{comment.id}")).to have_content(0)
             end
           end
         end
