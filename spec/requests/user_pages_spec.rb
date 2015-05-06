@@ -2,39 +2,54 @@ require 'spec_helper'
 
 describe "User Pages" do
   let(:user) { FactoryGirl.create(:user) }
+  let(:incomplete_user) { FactoryGirl.create(:user, state: nil, district: nil) }
   let!(:representative) { FactoryGirl.create(:representative, state: user.state, district: user.district)}
   let!(:senator) { FactoryGirl.create(:senator, state: user.state)}
   
   subject { page }
 
   describe "profile page" do
+
+
     
-    before { visit user_path(user) }
 
-    it { should have_content(user.name) }
-    it { should have_title(user.name) }
-    it { should have_content(user.state) }
-    it { should have_content("#{user.state}, #{user.district.ordinalize} district ") }
-
-    describe "without twitter linked" do
-      it {should have_content("Linked Twitter account: No")}
-      it { should have_link("Link Twitter Account", "/users/#{user.id}/after_signup/add_twitter") }
-    end
-
-    describe "with twitter linked" do
-      let!(:identity) {FactoryGirl.create(:identity, user: user)}
+    describe "as user with district, state and linked twitter account, " do
       before { visit user_path(user) }
 
-      it {should have_content("Linked Twitter account: Yes")}
-      it { should have_link("Twitter Profile","https://twitter.com/intent/user?user_id=#{user.identity.uid}") }
+      it { should have_content(user.name) }
+      it { should have_title(user.name) }
+      it { should have_content(user.state) }
+      it { should have_content("#{user.state}, #{user.district.ordinalize} district ") }
+
+      describe "senator information" do
+        it { should have_content(senator.full_name) }
+      end
+
+      describe "representative information" do
+        it { should have_content(representative.full_name) }
+      end
+
+      describe "twitter link" do
+        let!(:identity) {FactoryGirl.create(:identity, user: user)}
+        before { visit user_path(user) }
+
+        it {should have_content("Linked Twitter account: Yes")}
+        it { should have_link("Twitter Profile","https://twitter.com/intent/user?user_id=#{user.identity.uid}") }
+      end
     end
 
-    describe "representative information" do
-      it { should have_content(representative.full_name) }
-    end
+    describe "as user without district, state, and link twitter account, " do
+      before { visit user_path(incomplete_user) }
 
-    describe "senator information" do
-      it { should have_content(senator.full_name) }
+      it { should have_content(user.name) }
+      it { should have_title(user.name) }
+
+      it { should have_link("Add state and district information") }
+
+      describe "twitter link" do
+        it {should have_content("Linked Twitter account: No")}
+        it { should have_link("Link Twitter Account", "/users/#{user.id}/after_signup/add_twitter") }
+      end
     end
 
     describe "when logged out" do 
