@@ -10,9 +10,6 @@ describe "User Pages" do
 
   describe "profile page" do
 
-
-    
-
     describe "as user with district, state and linked twitter account, " do
       before { visit user_path(user) }
 
@@ -41,15 +38,42 @@ describe "User Pages" do
     describe "as user without district, state, and link twitter account, " do
       before { visit user_path(incomplete_user) }
 
-      it { should have_content(user.name) }
-      it { should have_title(user.name) }
+      it { should have_content(incomplete_user.name) }
+      it { should have_title(incomplete_user.name) }
 
       it { should have_link("Add state and district information") }
 
       describe "twitter link" do
         it {should have_content("Linked Twitter account: No")}
-        it { should have_link("Link Twitter Account", "/users/#{user.id}/after_signup/add_twitter") }
+        it { should have_link("Link Twitter Account", "/users/#{incomplete_user.id}/after_signup/add_twitter") }
       end
+    end
+
+    describe "as user without district" do
+      before do 
+        incomplete_user.update(state: "NY")
+        visit user_path(incomplete_user)
+      end
+
+      it { should have_link("Add district information") }
+    end
+
+    describe "as user without state" do
+      before do 
+        incomplete_user.update(district: 1)
+        visit user_path(incomplete_user)
+      end
+
+      it { should have_link("Add state information") }
+    end
+
+    describe "as user without district, state, and link twitter account, " do
+      before do 
+        incomplete_user.update(state: "NY")
+        visit user_path(incomplete_user)
+      end
+
+      it { should have_link("Add district information") }
     end
 
     describe "when logged out" do 
