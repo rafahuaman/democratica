@@ -22,6 +22,7 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :after_signup, controller: 'after_signup'
+    resources :update_state_and_district, controller: 'update_state_and_district'
   end
   
   resources :votes, only: [:create, :update, :destroy]

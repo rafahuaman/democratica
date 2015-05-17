@@ -3,7 +3,7 @@
 <% if @user.state and @user.district %>
   <p><%= @user.state %>, <%= @user.district.ordinalize %> district</p>
 <% elsif @user.state == nil and @user.district == nil %>
-  <p><%= link_to("Add state and district information") %></p>
+  <p><%= link_to("Add state and district information", user_update_state_and_district_path(user_id: @user.id, id: :update_state)) %></p>
 <% elsif @user.state == nil %>
   <p><%= link_to("Add state information") %></p>
 <% elsif @user.district == nil %>

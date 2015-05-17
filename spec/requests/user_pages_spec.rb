@@ -35,7 +35,7 @@ describe "User Pages" do
       end
     end
 
-    describe "as user without district, state, and link twitter account, " do
+    describe "as user without district, state, and linked twitter account, " do
       before { visit user_path(incomplete_user) }
 
       it { should have_content(incomplete_user.name) }
@@ -44,8 +44,20 @@ describe "User Pages" do
       it { should have_link("Add state and district information") }
 
       describe "twitter link" do
-        it {should have_content("Linked Twitter account: No")}
+        it { should have_content("Linked Twitter account: No") }
         it { should have_link("Link Twitter Account", "/users/#{incomplete_user.id}/after_signup/add_twitter") }
+      end
+
+      describe "when logged in" do
+        describe "update state and district wizard" do
+          before do 
+            sign_in incomplete_user
+            visit user_path(incomplete_user) 
+            click_link("Add state and district information") 
+          end
+
+          it { should have_content("Update your state to identify your sentator(s)") }
+        end
       end
     end
 
@@ -65,15 +77,6 @@ describe "User Pages" do
       end
 
       it { should have_link("Add state information") }
-    end
-
-    describe "as user without district, state, and link twitter account, " do
-      before do 
-        incomplete_user.update(state: "NY")
-        visit user_path(incomplete_user)
-      end
-
-      it { should have_link("Add district information") }
     end
 
     describe "when logged out" do 
