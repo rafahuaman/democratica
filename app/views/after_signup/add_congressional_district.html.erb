@@ -1,9 +1,5 @@
 <h2>Thanks of signing up</h2>
-<%= simple_form_for(@user, url: wizard_path, method: :put) do |f| %>
-  <%= f.error_notification %>
-  <%= f.input :district, collection: us_congressional_districts[@user.state.to_sym] %>
-  <%= f.button :submit, "Next" %>
-<% end %>
+<%= render 'users/user_district_form' %>
 
 <h5>Don't know your congressional district? we can help you find it!</h5>
 <%= render 'find_congressional_district/form' %>

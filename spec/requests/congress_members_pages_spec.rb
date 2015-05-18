@@ -26,7 +26,7 @@ describe "Congress Member Pages" do
     it { should have_new_congress_member_page_appearance  }
     
     describe "with invalid information" do
-      it "should not create a debate" do
+      it "should not create a congress member" do
         expect { click_button submit }.not_to change(CongressMember, :count)
       end
        
@@ -49,16 +49,16 @@ describe "Congress Member Pages" do
       
       before { valid_congress_member_form_completion(congress_member_form_information) }
       
-      it "should create a debate" do
+      it "should create a congress member" do
          expect { click_button submit }.to change(CongressMember, :count).by(1)
       end
       
-      describe "should redirect to debate show page after saving the debate" do
+      describe "should redirect to congress member show page after saving the congress member" do
         before { click_button submit } 
         it { should have_senator_show_data(congress_member_form_information) }
       end
       
-      describe "should show success message after saving the debate" do
+      describe "should show success message after saving the congress member" do
         before { click_button submit }
         it { should have_congress_member_created_successfully_message }
       end

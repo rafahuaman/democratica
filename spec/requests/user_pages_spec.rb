@@ -56,7 +56,24 @@ describe "User Pages" do
             click_link("Add state and district information") 
           end
 
-          it { should have_content("Update your state to identify your sentator(s)") }
+          describe "state step" do
+            it { should have_content("Update your state to identify your sentator(s)") }
+          end
+
+          describe "district step" do
+            before do
+              find('.select.optional#user_state').find(:xpath, 'option[2]').select_option
+              click_button "Next"
+            end
+            
+            it { should have_content("Update your congressional district to identify your representative") }
+          end
+
+          describe "should update the state" do
+            before do 
+
+            end
+          end
         end
       end
     end

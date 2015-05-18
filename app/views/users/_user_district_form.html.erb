@@ -1,0 +1,5 @@
+<%= simple_form_for(@user, url: wizard_path, method: :put) do |f| %>
+  <%= f.error_notification %>
+  <%= f.input :district, collection: us_congressional_districts[@user.state.to_sym] %>
+  <%= f.button :submit, "Next" %>
+<% end %>
