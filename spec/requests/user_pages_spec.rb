@@ -41,18 +41,24 @@ describe "User Pages" do
       it { should have_content(incomplete_user.name) }
       it { should have_title(incomplete_user.name) }
 
-      it { should have_link("Add state and district information") }
+      it { should_not have_link("Add state and district information") }
 
       describe "twitter link" do
         it { should have_content("Linked Twitter account: No") }
-        it { should have_link("Link Twitter Account", "/users/#{incomplete_user.id}/after_signup/add_twitter") }
+        it { should_not have_link("Link Twitter Account") }
       end
 
       describe "when logged in" do
+        before do 
+          sign_in incomplete_user
+          visit user_path(incomplete_user) 
+        end
+
+        it { should have_link("Add state and district information", href: user_update_state_and_district_path(user_id: incomplete_user.id, id: :update_state)) }
+        it { should have_link("Link Twitter Account",  href: user_after_signup_path(user_id: incomplete_user.id, id: :add_twitter)) }
+
         describe "update state and district wizard" do
           before do 
-            sign_in incomplete_user
-            visit user_path(incomplete_user) 
             click_link("Add state and district information") 
           end
 
@@ -65,13 +71,24 @@ describe "User Pages" do
               find('.select.optional#user_state').find(:xpath, 'option[2]').select_option
               click_button "Next"
             end
-            
+
             it { should have_content("Update your congressional district to identify your representative") }
           end
 
-          describe "should update the state" do
+          describe "when completed with valid information" do
             before do 
+              find('.select.optional#user_state').find(:xpath, 'option[2]').select_option
+              click_button "Next"
+              find('.select.optional#user_district').find(:xpath, 'option[2]').select_option
+              click_button "Submit"
+            end
 
+            it "should update the user's state " do
+              expect(incomplete_user.reload.state).not_to be_nil
+            end
+
+            it "should update the user's district " do
+              expect(incomplete_user.reload.district).not_to be_nil
             end
           end
         end
@@ -84,7 +101,16 @@ describe "User Pages" do
         visit user_path(incomplete_user)
       end
 
-      it { should have_link("Add district information") }
+      it { should_not have_link("Add district information") }
+
+      describe "when logged in" do
+        before do
+          sign_in incomplete_user
+          visit user_path(incomplete_user) 
+        end
+
+        it { should have_link("Add district information", href: user_update_state_and_district_path(user_id: incomplete_user.id, id: :update_district)) }
+      end
     end
 
     describe "as user without state" do
@@ -93,7 +119,17 @@ describe "User Pages" do
         visit user_path(incomplete_user)
       end
 
-      it { should have_link("Add state information") }
+      it { should_not have_link("Add state information") }
+
+
+      describe "when logged in" do
+        before do
+          sign_in incomplete_user
+          visit user_path(incomplete_user) 
+        end
+
+        it { should have_link("Add state information", href: user_update_state_and_district_path(user_id: incomplete_user.id, id: :update_state)) }
+      end
     end
 
     describe "when logged out" do 

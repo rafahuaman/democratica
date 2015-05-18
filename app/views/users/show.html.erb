@@ -2,12 +2,14 @@
 <h2><%= @user.name %></h2>
 <% if @user.state and @user.district %>
   <p><%= @user.state %>, <%= @user.district.ordinalize %> district</p>
-<% elsif @user.state == nil and @user.district == nil %>
-  <p><%= link_to("Add state and district information", user_update_state_and_district_path(user_id: @user.id, id: :update_state)) %></p>
-<% elsif @user.state == nil %>
-  <p><%= link_to("Add state information") %></p>
-<% elsif @user.district == nil %>
-  <p><%= link_to("Add district information") %></p>
+<% elsif @user == current_user %>
+  <% if @user.state == nil and @user.district == nil %>
+    <p><%= link_to("Add state and district information", user_update_state_and_district_path(user_id: @user.id, id: :update_state)) %></p>
+  <% elsif @user.state == nil %>
+    <p><%= link_to("Add state information", user_update_state_and_district_path(user_id: @user.id, id: :update_state)) %></p>
+  <% elsif @user.district == nil %>
+    <p><%= link_to("Add district information", user_update_state_and_district_path(user_id: @user.id, id: :update_district)) %></p>
+  <% end %>
 <% end %>
 
 <p><b>My representative:</b> <%= @representative_name %></p>
@@ -19,7 +21,9 @@
   <%= link_to("Twitter Profile", "https://twitter.com/intent/user?user_id=#{@user.identity.uid}", class: "button small") %>
 <% else %>
   <p>Linked Twitter account: No</p>
-  <%= link_to("Link Twitter Account", "users/#{@user.id}/after_signup/add_twitter", class: "button small") %>
+  <% if @user ==  current_user %>
+    <%= link_to("Link Twitter Account", user_after_signup_path(user_id: @user.id, id: :add_twitter), class: "button small") %>
+  <% end %>
 <% end %>
 
 <% if current_user == @user %>
