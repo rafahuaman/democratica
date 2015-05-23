@@ -5,12 +5,15 @@ describe "User Pages" do
   let(:incomplete_user) { FactoryGirl.create(:user, state: nil, district: nil) }
   let!(:representative) { FactoryGirl.create(:representative, state: user.state, district: user.district)}
   let!(:senator) { FactoryGirl.create(:senator, state: user.state)}
+
   
   subject { page }
 
   describe "profile page" do
     let(:update_district_header) { "Update your congressional district to identify your representative" }
     let(:update_state_header) { "Update your state to identify your sentator(s)" }
+    let(:edit_profile_link) { "Edit profile"}
+    let(:edit_state_district_link) { "Edit State & District"}
 
     describe "as user with district, state and linked twitter account, " do
       before { visit user_path(user) }
@@ -177,7 +180,8 @@ describe "User Pages" do
     end
 
     describe "when logged out" do 
-      it { should_not have_link("edit", edit_user_path(user)) }
+      it { should_not have_link(edit_profile_link, edit_user_path(user)) }
+      it { should_not have_link(edit_state_district_link, href: user_update_state_and_district_path(user_id: user.id, id: :update_state)) }
     end
 
     describe "when logged in" do
@@ -186,7 +190,8 @@ describe "User Pages" do
         visit user_path(user)
       end
       
-      it { should have_link("Edit profile", edit_user_path(user)) }
+      it { should have_link(edit_profile_link, edit_user_path(user)) }
+      it { should have_link(edit_state_district_link, href: user_update_state_and_district_path(user_id: user.id, id: :update_state)) }
     end
   end
 

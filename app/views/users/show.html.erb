@@ -32,4 +32,5 @@
 
 <% if current_user == @user %>
   <p><%= link_to("Edit profile", edit_user_url(@user)) %></p>
+  <p><%= link_to("Edit State & District", user_update_state_and_district_path(user_id: @user.id, id: :update_state)) %></p>
 <% end %>
