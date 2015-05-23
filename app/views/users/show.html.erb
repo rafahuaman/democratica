@@ -16,16 +16,20 @@
 
 <p><b>My senator:</b> <%= @senator_name %></p>
 
+<p><b>Linked Twitter account:</b>
+
 <% if @user.identity %>
-  <p>Linked Twitter account: Yes</p>
+   Yes
+   </p>
   <%= link_to("Twitter Profile", "https://twitter.com/intent/user?user_id=#{@user.identity.uid}", class: "button small") %>
 <% else %>
-  <p>Linked Twitter account: No</p>
+  No, 
   <% if @user ==  current_user %>
-    <%= link_to("Link Twitter Account", user_after_signup_path(user_id: @user.id, id: :add_twitter), class: "button small") %>
+    <%= link_to("Link Twitter Account", user_after_signup_path(user_id: @user.id, id: :add_twitter)) %>
   <% end %>
+  </p>
 <% end %>
 
 <% if current_user == @user %>
-  <%= link_to("Edit profile", edit_user_url(@user)) %>
+  <p><%= link_to("Edit profile", edit_user_url(@user)) %></p>
 <% end %>

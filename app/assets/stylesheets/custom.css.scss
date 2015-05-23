@@ -119,9 +119,7 @@ ul.comment-links {
 
 .vote.unclicked {
   a {
-    &:hover {
-      color: #00CED1;
-    }
+    color: #000;
   }
 }
 
@@ -131,11 +129,10 @@ ul.comment-links {
   }
 }
 
+
 .comment-vote-button.unclicked {
   a {
-    &:hover {
-      color: #00CED1;
-    }
+    color: #000;
   }
 }
 
@@ -153,3 +150,6 @@ ul.argument-post-links {
     padding-left: .25rem;
   }
 }
+
+/* General Formatting */
+

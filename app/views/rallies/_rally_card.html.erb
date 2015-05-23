@@ -6,7 +6,7 @@
         <%= render 'votes/vote_form' %>
       </li>
       <li class="rally-description">
-        <h5 class="content-title"><%= link_to "#{@rally.title}", rally_path(@rally) %></h5>
+        <h5 class="content-title"><%= link_to "#{@rally.title}", rally_path(@rally), class: "no-link-style" %></h5>
         <p class="author">Submitted by 
           <span class="author-name"><strong><%= link_to "#{@rally.user.name}", user_path(@rally.user_id) %></strong></span>
         </p>
@@ -16,14 +16,14 @@
             <% comment_link_text = "comment" %>
             <% comment_count = @rally.comments.count %>
             <% if comment_count > 0 %>
-              <li><%= link_to "#{pluralize(@rally.comments.count,comment_link_text)}", rally_path(@rally) %></li>
+              <li><%= link_to "#{pluralize(@rally.comments.count,comment_link_text)}", rally_path(@rally), class: "no-link-style" %></li>
             <% else %>
-              <li><%= link_to "comment", rally_path(@rally) %></li>
+              <li><%= link_to "comment", rally_path(@rally), class: "no-link-style" %></li>
             <% end %>
             
             <% if current_user == @rally.user %>
-              <li><%= link_to "edit", edit_rally_path(@rally) %></li>
-              <li><%= link_to "delete", rally_path(@rally), method: :delete, data: { 
+              <li><%= link_to "edit", edit_rally_path(@rally), class: "no-link-style" %></li>
+              <li><%= link_to "delete", rally_path(@rally), class: "no-link-style", method: :delete, data: { 
                 confirm: "Are you sure?",
                 text: "Are you sure that you want to delete this rally", 
                 'sweet-alert-type' => "warning",
