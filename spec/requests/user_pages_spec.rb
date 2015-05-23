@@ -160,7 +160,7 @@ describe "User Pages" do
             before do 
               find('.select.optional#user_state').find(:xpath, 'option[2]').select_option
               click_button "Next"
-              find('.select.optional#user_district').find(:xpath, 'option[2]').select_option
+              find('.select.optional#user_district').find(:xpath, 'option[3]').select_option
               click_button "Submit"
             end
 
@@ -169,7 +169,7 @@ describe "User Pages" do
             end
 
             it "should update the user's district " do
-              expect(incomplete_user.reload.district).to be(1)
+              expect(incomplete_user.reload.district).not_to eq(1)
             end
           end
         end
