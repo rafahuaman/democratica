@@ -9,6 +9,8 @@ describe "User Pages" do
   subject { page }
 
   describe "profile page" do
+    let(:update_district_header) { "Update your congressional district to identify your representative" }
+    let(:update_state_header) { "Update your state to identify your sentator(s)" }
 
     describe "as user with district, state and linked twitter account, " do
       before { visit user_path(user) }
@@ -63,7 +65,7 @@ describe "User Pages" do
           end
 
           describe "state step" do
-            it { should have_content("Update your state to identify your sentator(s)") }
+            it { should have_content(update_state_header) }
           end
 
           describe "district step" do
@@ -72,7 +74,7 @@ describe "User Pages" do
               click_button "Next"
             end
 
-            it { should have_content("Update your congressional district to identify your representative") }
+            it { should have_content(update_district_header) }
           end
 
           describe "when completed with valid information" do
@@ -110,6 +112,24 @@ describe "User Pages" do
         end
 
         it { should have_link("Add district information", href: user_update_state_and_district_path(user_id: incomplete_user.id, id: :update_district)) }
+
+        describe "click Add district information link" do
+          before do
+            click_link "Add district information"
+          end
+          it { should have_content(update_district_header) }
+
+          describe "complete with valid information" do
+            before do 
+              find('.select.optional#user_district').find(:xpath, 'option[2]').select_option
+              click_button "Submit"
+            end
+
+            it "should update the user's district " do
+              expect(incomplete_user.reload.district).not_to be_nil
+            end
+          end
+        end
       end
     end
 
@@ -129,6 +149,30 @@ describe "User Pages" do
         end
 
         it { should have_link("Add state information", href: user_update_state_and_district_path(user_id: incomplete_user.id, id: :update_state)) }
+
+        describe "click Add state information link" do
+          before do
+            click_link "Add state information"
+          end
+          it { should have_content(update_state_header) }
+
+          describe "complete wizard" do
+            before do 
+              find('.select.optional#user_state').find(:xpath, 'option[2]').select_option
+              click_button "Next"
+              find('.select.optional#user_district').find(:xpath, 'option[2]').select_option
+              click_button "Submit"
+            end
+
+            it "should update the user's state " do
+              expect(incomplete_user.reload.state).not_to be_nil
+            end
+
+            it "should update the user's district " do
+              expect(incomplete_user.reload.district).to be(1)
+            end
+          end
+        end
       end
     end
 

@@ -1,7 +1,7 @@
 class UpdateStateAndDistrictController < ApplicationController
   include Wicked::Wizard
   
-  steps :update_state, :update_disctrict
+  steps :update_state, :update_district
 
   def show
     @user = current_user
