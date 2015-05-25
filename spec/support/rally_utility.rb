@@ -26,16 +26,16 @@ module RallyUtility
   RSpec::Matchers.define :have_a_tweet_preview_with_placeholders do |rally|
     template = rally[:twitter_template]
     match do |page|
-      expect(page).to have_content("#{template} @YourSenator @YourRepresentative")
+      expect(page).to have_content("#{template} @YourSenators @YourRepresentative")
     end
   end
 
   RSpec::Matchers.define :have_a_tweet_preview do |rally, user|
     template = rally[:twitter_template]
-    senator_handle = CongressMemberFinder.get_senator(user).twitter_handle
+    senator_handles = CongressMemberFinder.get_senators(user).map { |senator| senator.twitter_handle }.join(" ")
     rep_handle = CongressMemberFinder.get_representative(user).twitter_handle
     match do |page|
-      expect(page).to have_content("#{template} #{senator_handle} #{rep_handle}")
+      expect(page).to have_content("#{template} #{senator_handles} #{rep_handle}")
     end
   end
 

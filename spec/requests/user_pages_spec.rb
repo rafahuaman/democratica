@@ -4,7 +4,8 @@ describe "User Pages" do
   let(:user) { FactoryGirl.create(:user) }
   let(:incomplete_user) { FactoryGirl.create(:user, state: nil, district: nil) }
   let!(:representative) { FactoryGirl.create(:representative, state: user.state, district: user.district)}
-  let!(:senator) { FactoryGirl.create(:senator, state: user.state)}
+  let!(:first_senator) { FactoryGirl.create(:senator, state: user.state)}
+  let!(:second_senator) { FactoryGirl.create(:senator, state: user.state)}
 
   
   subject { page }
@@ -23,8 +24,12 @@ describe "User Pages" do
       it { should have_content(user.state) }
       it { should have_content("#{user.state}, #{user.district.ordinalize} district ") }
 
-      describe "senator information" do
-        it { should have_content(senator.full_name) }
+      describe "first senator information" do
+        it { should have_content(first_senator.full_name) }
+      end
+
+      describe "second senator information" do
+        it { should have_content(second_senator.full_name) }
       end
 
       describe "representative information" do

@@ -6,9 +6,9 @@
       <p>
         <strong>Twitter template:</strong>
         <% if signed_in? %>
-          <%= "#{@rally.twitter_template} #{@senator_handle} #{@representative_handle}" %>
+          <%= "#{@rally.twitter_template} #{@senator_handles} #{@representative_handle}" %>
         <% else %>
-          <%= "#{@rally.twitter_template} @YourSenator @YourRepresentative" %>
+          <%= "#{@rally.twitter_template} @YourSenators @YourRepresentative" %>
         <% end %>
         
       </p>    

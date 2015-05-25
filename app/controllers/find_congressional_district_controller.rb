@@ -8,6 +8,7 @@ class FindCongressionalDistrictController < ApplicationController
     longitude = geo_results.first.longitude
     district_object = Congress.districts_locate(latitude, longitude)
     district = district_object['results'].first.district.ordinalize
+    district = "at-large" if district == "0th"
     @found_message = "The address entered belong's to #{state}'s #{district} congressional district"
     respond_to do |format|
       format.js

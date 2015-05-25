@@ -14,10 +14,10 @@ class RalliesController < ApplicationController
   def show
     if current_user
       user_congress_members = CongressMemberFinder.get_all(current_user)
-      @senator_handle = user_congress_members[:senator] ? user_congress_members[:senator].twitter_handle : "@YourSenator"
+      @senator_handles = user_congress_members[:senators] ? user_congress_members[:senators].map { |senator| senator.twitter_handle }.join(" ") : "@YourSenators"
       @representative_handle = user_congress_members[:representative] ? user_congress_members[:representative].twitter_handle : "@YourRepresentative"
     else
-      @senator_handle = "@YourSenator"
+      @senator_handles = "@YourSenators"
       @representative_handle = "@YourRepresentative"
     end
   end

@@ -228,7 +228,8 @@ describe "Rally pages" do
     end
 
     describe "when signed in user has congress members"  do
-      let!(:sen) { FactoryGirl.create(:senator, state: user.state) }
+      let!(:sen1) { FactoryGirl.create(:senator, state: user.state) }
+      let!(:sen2) { FactoryGirl.create(:senator, state: user.state) }
       let!(:rep) { FactoryGirl.create(:representative, state: user.state, district: user.district) }
       before do
         sign_in user

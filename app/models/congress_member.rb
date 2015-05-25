@@ -1,7 +1,7 @@
 class CongressMember < ActiveRecord::Base
   validates :first_name, presence: true, length: { maximum: 50 }
   validates :last_name, presence: true, length: { maximum: 50 }
-  validates :district, uniqueness: { scope: [:state], message: "This state's district is already taken." } 
+  validates :district, uniqueness: { scope: [:state], unless: Proc.new { |member| member.district.blank? }, message: "This state's district is already taken." } 
   validates :state, presence: true, length: { maximum: 2 }
   validates :type_by_house, presence: true, inclusion: { in: %w(Representative Senator),
     message: "%{value} is not a valid Type" }

@@ -1,5 +1,6 @@
 <%= simple_form_for(@user, url: wizard_path, method: :put) do |f| %>
   <%= f.error_notification %>
-  <%= f.input :district, collection: us_congressional_districts[@user.state.to_sym] %>
+  <%= f.input :district, collection: us_congressional_districts[@user.state.to_sym],
+    label_method: lambda { |district_number|  district_number == 0 ? "at-large" : district_number.ordinalize }  %>
   <%= f.button :submit, "#{submit_label}" %>
 <% end %>

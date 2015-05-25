@@ -41,7 +41,7 @@ describe "Congress Member Pages" do
         first_name: "NewName", 
         last_name: "NewSurname",
         state: "DC", 
-        district: 2, 
+        district: nil, 
         party: "D", 
         twitter_handle: "@NewHandle", 
         type_by_house: "Senator" } 

@@ -1,1 +1,1 @@
-swal("Good job!", "You made your voice heard!", "success");
+swal("You took action!", "You tweeted at your members of congress from your linked account.", "success");

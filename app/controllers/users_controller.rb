@@ -12,7 +12,13 @@ class UsersController < ApplicationController
   def show
     user_congress_members = CongressMemberFinder.get_all(@user)
     @representative_name = user_congress_members[:representative] ? user_congress_members[:representative].full_name : "Complete your profile!"
-    @senator_name = user_congress_members[:senator] ? user_congress_members[:senator].full_name : "Complete your profile!"
+    if user_congress_members[:senators]
+      @first_senator_name = user_congress_members[:senators][0] ? user_congress_members[:senators][0].full_name : "Complete your profile!"
+      @second_senator_name = user_congress_members[:senators][1] ? user_congress_members[:senators][1].full_name : "Complete your profile!"
+    else
+      @first_senator_name = "Complete your profile!"
+      @second_senator_name = "Complete your profile!"
+    end
   end
 
   def edit

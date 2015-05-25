@@ -1,5 +1,5 @@
 class TweetBuilder
-  SENATOR_PLACEHOLDER = "@YourSenatorHere"
+  SENATOR_PLACEHOLDER = "@YourSenatorsHere"
   REPRESENTATIVE_PLACEHOLDER = "@YourRepresentativeHere"
 
   def initialize(user, tweet_text)
@@ -9,7 +9,7 @@ class TweetBuilder
 
   def build_for(recipient)
     handles = get_handles
-    tweet = recipient == :all ? "#{@tweet_text} #{handles[:senator]} #{handles[:representative]}" : "#{@tweet_text} #{handles[recipient]}"
+    tweet = recipient == :all ? "#{@tweet_text} #{handles[:senators]} #{handles[:representative]}" : "#{@tweet_text} #{handles[recipient]}"
     return tweet.split.join(" ")
   end
 
@@ -17,8 +17,16 @@ class TweetBuilder
     def get_handles
       user_congress_members = CongressMemberFinder.get_all(@user)
       {
-        senator: user_congress_members[:senator] ? user_congress_members[:senator].twitter_handle : "",
-        representative: user_congress_members[:representative] ? user_congress_members[:representative].twitter_handle : ""
+        senators: format_senator_handles(user_congress_members[:senators]),
+        representative: format_representative_hanlde(user_congress_members[:representative])
       }
+    end
+
+    def format_senator_handles(senators)
+      senators.map { |senator| senator.twitter_handle }.join(" ") if senators
+    end
+
+    def format_representative_hanlde(representative)
+      representative ? representative.twitter_handle : ""
     end
 end
